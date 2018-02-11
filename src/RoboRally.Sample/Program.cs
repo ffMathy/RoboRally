@@ -33,6 +33,15 @@ namespace RoboRally.Sample
 
 				programRegisters.Commit();
 
+				var announcePowerDown = game.EnterAnnouncePowerDownPhase();
+
+				announcePowerDown.SetPowerDownState(player1, true);
+				announcePowerDown.SetPowerDownState(player2, false);
+
+				announcePowerDown.Commit();
+
+				var completeRegisters = game.EnterCompleteRegistersPhase();
+				completeRegisters.Commit();
 			}
         }
     }
