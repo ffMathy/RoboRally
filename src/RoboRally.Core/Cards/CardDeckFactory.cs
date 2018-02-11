@@ -12,82 +12,116 @@ namespace RoboRally.Core.Cards
 		{
 			var deckSetup = GetDeckSetup();
 
-			var cardDeck = new CardDeck();
+			var cards = new List<ICard>();
 			foreach (var type in deckSetup)
 			{
-				var next = type.Value[0];
-				var modifier = type.Value[1];
-				var end = type.Value[2];
-				while (next <= end)
+				var priority = type.StartPriority;
+
+				while (priority <= type.EndPriority)
 				{
-					next += modifier;
+					var card = type.CardConstructor();
+					card.Priority = priority;
+
+					priority += type.PriorityModifier;
+					cards.Add(card);
 				}
 			}
 
+			var cardDeck = new CardDeck(cards);
 			return cardDeck;
 		}
 
-		private IDictionary<ICard, List<int>> GetDeckSetup()
+		private IList<CardSetup> GetDeckSetup()
 		{
-			var cards = new Dictionary<ICard, List<int>>();
+			var cards = new List<CardSetup>();
 
-			cards.Add(new Uturn(), 
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				10, // Start index
-				60, // End index
-				10 // modifier
+				CardConstructor = () => new Uturn(),
+				StartPriority = 10, 
+				EndPriority = 60, 
+				PriorityModifier = 10
 			});
 
-			cards.Add(new Rotate { Direction = RotateDirection.Left },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				70, // Start index
-				410, // End index
-				20 // modifier
+				CardConstructor = () => new Rotate
+				{
+					Direction = RotateDirection.Left
+				},
+				StartPriority = 70, 
+				EndPriority = 410, 
+				PriorityModifier = 20
 			});
 
-			cards.Add(new Rotate { Direction = RotateDirection.Right },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				80, // Start index
-				420, // End index
-				20 // modifier
+				CardConstructor = () => new Rotate
+				{
+					Direction = RotateDirection.Right
+				},
+				StartPriority = 80, 
+				EndPriority = 420, 
+				PriorityModifier = 20
 			});
 
-			cards.Add(new Move { MoveDirection = MoveDirection.Backward, Count = 1 },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				430, // Start index
-				480, // End index
-				10 // modifier
+				CardConstructor = () => new Move
+				{
+					Direction = MoveDirection.Backward,
+					Count = 1
+				},
+				StartPriority = 430, 
+				EndPriority = 480, 
+				PriorityModifier = 10
 			});
 
-			cards.Add(new Move { MoveDirection = MoveDirection.Backward, Count = 1 },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				490, // Start index
-				660, // End index
-				10 // modifier
+				CardConstructor = () => new Move
+				{
+					Direction = MoveDirection.Forward,
+					Count = 1
+				},
+				StartPriority = 490, 
+				EndPriority = 660, 
+				PriorityModifier = 10
 			});
 
-			cards.Add(new Move { MoveDirection = MoveDirection.Backward, Count = 2 },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				670, // Start index
-				780, // End index
-				10 // modifier
+				CardConstructor = () => new Move
+				{
+					Direction = MoveDirection.Forward,
+					Count = 2
+				},
+				StartPriority = 670, 
+				EndPriority = 780, 
+				PriorityModifier = 10
 			});
 
-			cards.Add(new Move { MoveDirection = MoveDirection.Backward, Count = 3 },
-			new List<int>
+			cards.Add(new CardSetup
 			{
-				790, // Start index
-				840, // End index
-				10 // modifier
+				CardConstructor = () => new Move
+				{
+					Direction = MoveDirection.Forward,
+					Count = 3
+				},
+				StartPriority = 790, 
+				EndPriority =  840, 
+				PriorityModifier = 10
 			});
 
 			return cards;
+		}
+		private class CardSetup
+		{
+			public Func<ICard> CardConstructor { get; set; }
+
+			public int StartPriority { get; set; }
+			public int EndPriority { get; set; }
+			public int PriorityModifier { get; set; }
 		}
     }
 }

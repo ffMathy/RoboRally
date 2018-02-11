@@ -8,7 +8,7 @@ namespace RoboRally.Core.Cards
 	{
 		IGame Game { get; }
 
-		int Priority { get; }
+		int Priority { get; set; }
 
 		void ExecuteOnBehalfOfPlayer(IPlayer player);
 	}
