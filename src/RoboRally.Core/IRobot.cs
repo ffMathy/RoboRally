@@ -8,8 +8,9 @@ namespace RoboRally.Core
     public interface IRobot
     {
 		IGame Game { get; }
-		OrientationDirection Direction { get; }
-		ITile CurrentTile { get; }
+		IPlayer Player { get; }
+		OrientationDirection Direction { get; set; }
+		ITile CurrentTile { get; set; }
 		ITile ArchiveMarkerPosition { get; }
 
 		ITile[] FlagsTouched { get; }

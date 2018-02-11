@@ -18,6 +18,14 @@ namespace RoboRally.Core.Tiles
 
 		public ITileModifier[] Modifiers { get; set; }
 
+		public Tile()
+		{
+			Left = new TileRelation();
+			Top = new TileRelation();
+			Right = new TileRelation();
+			Bottom = new TileRelation();
+		}
+
 		public virtual void Move(int registerOffset)
 		{
 		}
