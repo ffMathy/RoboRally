@@ -18,7 +18,7 @@ namespace RoboRally.Core
 
 		public IPlayer[] Players => throw new NotImplementedException();
 
-		public ICardDeck CardDeck => throw new NotImplementedException();
+		public ICardDeck CardDeck { get; set; }
 
 		public IPhase CurrentPhase => throw new NotImplementedException();
 
