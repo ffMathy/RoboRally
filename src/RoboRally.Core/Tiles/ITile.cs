@@ -14,9 +14,13 @@ namespace RoboRally.Core.Tiles
 		int MovePriority { get; }
 
 		IRobot Robot { get; }
+		IGame Game { get; }
+
 		ITileModifier[] Modifiers { get; }
 
-		void Move(int registerOffset);
+		void BeforeMove(int registerOffset);
+		void AfterMove(int registerOffset);
+
 		void TouchByRobot(IRobot robot);
 	}
 }
