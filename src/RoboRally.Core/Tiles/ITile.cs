@@ -14,7 +14,7 @@ namespace RoboRally.Core.Tiles
 		int MovePriority { get; }
 
 		IRobot Robot { get; }
-		IGame Game { get; }
+		IGame Game { get; set; }
 
 		ITileModifier[] Modifiers { get; }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RoboRally.Core.Cards;
+using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Phases;
 
 namespace RoboRally.Core
@@ -10,11 +11,11 @@ namespace RoboRally.Core
 	{
 		public IPlayer[] Players => throw new NotImplementedException();
 
-		public IFactoryFloor FactoryFloor => throw new NotImplementedException();
-
 		public ICardDeck CardDeck => throw new NotImplementedException();
 
 		public IPhase CurrentPhase => throw new NotImplementedException();
+
+		public IFactoryFloor FactoryFloor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase()
 		{
@@ -61,7 +62,12 @@ namespace RoboRally.Core
 			throw new NotImplementedException();
 		}
 
-		public void RotateRobot(IRobot robot, Direction direction)
+		public void AbsoluteRotateRobot(IRobot robot, Direction direction)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RelativeRotateRobot(IRobot robot, RotateDirection left)
 		{
 			throw new NotImplementedException();
 		}

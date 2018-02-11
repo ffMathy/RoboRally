@@ -1,4 +1,4 @@
-﻿namespace RoboRally.Core.Cards
+﻿namespace RoboRally.Core
 {
 	public enum RotateDirection
 	{
