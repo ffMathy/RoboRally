@@ -4,7 +4,8 @@ using System.Text;
 
 namespace RoboRally.Core
 {
-    public interface ICard
-    {
-    }
+	public interface ICard
+	{
+		int Priority { get; }
+	}
 }

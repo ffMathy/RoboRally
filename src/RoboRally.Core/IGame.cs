@@ -17,5 +17,7 @@ namespace RoboRally.Core
 		IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase();
 		ICompleteRegistersPhase EnterCompleteRegistersPhase();
 		ICleanupPhase EnterCleanupPhase();
+
+		void ExecuteCard(IPlayer player, ICard card);
 	}
 }

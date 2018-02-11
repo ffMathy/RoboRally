@@ -42,6 +42,9 @@ namespace RoboRally.Sample
 
 				var completeRegisters = game.EnterCompleteRegistersPhase();
 				completeRegisters.Commit();
+
+				var cleanup = game.EnterCleanupPhase();
+				cleanup.Commit();
 			}
         }
     }
