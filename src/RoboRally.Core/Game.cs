@@ -40,6 +40,11 @@ namespace RoboRally.Core
 			throw new NotImplementedException();
 		}
 
+		public void ExecuteCard(IPlayer player, ICard card)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void Initialize()
 		{
 

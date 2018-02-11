@@ -9,11 +9,11 @@ namespace RoboRally.Core
 	public class CardDeckFactory : ICardDeckFactory
 	{
 
-		private Dictionary<Move, List<int> cards;
+		private IDictionary<Move, List<int>> cards;
 
 		public ICardDeck CreateDeck()
 		{
-
+			throw new NotImplementedException();
 		}
     }
 }
