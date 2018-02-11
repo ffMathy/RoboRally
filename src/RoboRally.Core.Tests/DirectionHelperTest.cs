@@ -8,38 +8,38 @@ namespace RoboRally.Core.Tests
         [TestMethod]
         public void GetRotatedDirectionTest()
         {
-			Assert.AreEqual(Direction.Right, DirectionHelper.GetRotatedDirection(Direction.Down, RotateDirection.Left));
-			Assert.AreEqual(Direction.Up, DirectionHelper.GetRotatedDirection(Direction.Right, RotateDirection.Left));
-			Assert.AreEqual(Direction.Left, DirectionHelper.GetRotatedDirection(Direction.Up, RotateDirection.Left));
-			Assert.AreEqual(Direction.Down, DirectionHelper.GetRotatedDirection(Direction.Left, RotateDirection.Left));
+			Assert.AreEqual(OrientationDirection.Right, DirectionHelper.GetRotatedDirection(OrientationDirection.Down, RotateDirection.Left));
+			Assert.AreEqual(OrientationDirection.Up, DirectionHelper.GetRotatedDirection(OrientationDirection.Right, RotateDirection.Left));
+			Assert.AreEqual(OrientationDirection.Left, DirectionHelper.GetRotatedDirection(OrientationDirection.Up, RotateDirection.Left));
+			Assert.AreEqual(OrientationDirection.Down, DirectionHelper.GetRotatedDirection(OrientationDirection.Left, RotateDirection.Left));
 
-			Assert.AreEqual(Direction.Left, DirectionHelper.GetRotatedDirection(Direction.Down, RotateDirection.Right));
-			Assert.AreEqual(Direction.Down, DirectionHelper.GetRotatedDirection(Direction.Right, RotateDirection.Right));
-			Assert.AreEqual(Direction.Right, DirectionHelper.GetRotatedDirection(Direction.Up, RotateDirection.Right));
-			Assert.AreEqual(Direction.Up, DirectionHelper.GetRotatedDirection(Direction.Left, RotateDirection.Right));
+			Assert.AreEqual(OrientationDirection.Left, DirectionHelper.GetRotatedDirection(OrientationDirection.Down, RotateDirection.Right));
+			Assert.AreEqual(OrientationDirection.Down, DirectionHelper.GetRotatedDirection(OrientationDirection.Right, RotateDirection.Right));
+			Assert.AreEqual(OrientationDirection.Right, DirectionHelper.GetRotatedDirection(OrientationDirection.Up, RotateDirection.Right));
+			Assert.AreEqual(OrientationDirection.Up, DirectionHelper.GetRotatedDirection(OrientationDirection.Left, RotateDirection.Right));
 		}
 
 		[TestMethod]
 		public void GetRotationDirectionTest() {
-			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(Direction.Up, Direction.Right));
-			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(Direction.Up, Direction.Left));
-			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(Direction.Up, Direction.Down));
-			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(Direction.Up, Direction.Up));
+			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(OrientationDirection.Up, OrientationDirection.Right));
+			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(OrientationDirection.Up, OrientationDirection.Left));
+			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(OrientationDirection.Up, OrientationDirection.Down));
+			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(OrientationDirection.Up, OrientationDirection.Up));
 
-			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(Direction.Right, Direction.Right));
-			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(Direction.Right, Direction.Left));
-			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(Direction.Right, Direction.Down));
-			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(Direction.Right, Direction.Up));
+			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(OrientationDirection.Right, OrientationDirection.Right));
+			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(OrientationDirection.Right, OrientationDirection.Left));
+			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(OrientationDirection.Right, OrientationDirection.Down));
+			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(OrientationDirection.Right, OrientationDirection.Up));
 
-			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(Direction.Down, Direction.Right));
-			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(Direction.Down, Direction.Left));
-			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(Direction.Down, Direction.Down));
-			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(Direction.Down, Direction.Up));
+			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(OrientationDirection.Down, OrientationDirection.Right));
+			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(OrientationDirection.Down, OrientationDirection.Left));
+			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(OrientationDirection.Down, OrientationDirection.Down));
+			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(OrientationDirection.Down, OrientationDirection.Up));
 
-			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(Direction.Left, Direction.Right));
-			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(Direction.Left, Direction.Left));
-			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(Direction.Left, Direction.Down));
-			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(Direction.Left, Direction.Up));
+			Assert.AreEqual(RotateDirection.Uturn, DirectionHelper.GetRotationDirection(OrientationDirection.Left, OrientationDirection.Right));
+			Assert.AreEqual(RotateDirection.None, DirectionHelper.GetRotationDirection(OrientationDirection.Left, OrientationDirection.Left));
+			Assert.AreEqual(RotateDirection.Left, DirectionHelper.GetRotationDirection(OrientationDirection.Left, OrientationDirection.Down));
+			Assert.AreEqual(RotateDirection.Right, DirectionHelper.GetRotationDirection(OrientationDirection.Left, OrientationDirection.Up));
 		}
     }
 }

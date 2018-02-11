@@ -8,7 +8,7 @@ namespace RoboRally.Core
     public interface IRobot
     {
 		IGame Game { get; }
-		Direction Direction { get; }
+		OrientationDirection Direction { get; }
 		ITile CurrentTile { get; }
 		ITile ArchiveMarkerPosition { get; }
 

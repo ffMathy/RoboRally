@@ -58,12 +58,12 @@ namespace RoboRally.Sample
 			//row 1
 			var row = 0;
 			builder.FillTile(0, row, new Tile());
-			builder.FillTile(1, row, new ConveyorBeltTile(Direction.Down));
+			builder.FillTile(1, row, new ConveyorBeltTile(OrientationDirection.Down));
 			builder.FillTile(5, row, new Tile());
 
 			//row 2
 			row += 1;
-			builder.FillTile(0, row, new ConveyorBeltTile(Direction.Left));
+			builder.FillTile(0, row, new ConveyorBeltTile(OrientationDirection.Left));
 			builder.FillTile(1, row, new RotateRightTile());
 			builder.FillTile(11, row, new HoleTile());
 
@@ -97,22 +97,22 @@ namespace RoboRally.Sample
 
 			//row 11
 			row += 1;
-			builder.FillTile(0, row, new ConveyorBeltTile(Direction.Right));
+			builder.FillTile(0, row, new ConveyorBeltTile(OrientationDirection.Right));
 			builder.FillTile(1, row, new RotateRightTile());
 			builder.FillTile(9, row, new HoleTile());
-			builder.FillTile(11, row, new ConveyorBeltTile(Direction.Right));
+			builder.FillTile(11, row, new ConveyorBeltTile(OrientationDirection.Right));
 
 			//row 12
 			row += 1;
-			builder.FillTile(1, row, new ConveyorBeltTile(Direction.Down));
+			builder.FillTile(1, row, new ConveyorBeltTile(OrientationDirection.Down));
 
 			//repeated areas
 			builder.FillVerticalArea(2, 0, 3, () => new Tile());
-			builder.FillVerticalArea(3, 0, 3, () => new ConveyorBeltTile(Direction.Up));
+			builder.FillVerticalArea(3, 0, 3, () => new ConveyorBeltTile(OrientationDirection.Up));
 			builder.FillVerticalArea(4, 0, 4, () => new Tile());
-			builder.FillVerticalArea(6, 0, 5, () => new ExpressConveyorBeltTile(Direction.Up));
+			builder.FillVerticalArea(6, 0, 5, () => new ExpressConveyorBeltTile(OrientationDirection.Up));
 			builder.FillVerticalArea(7, 0, 5, () => new Tile());
-			builder.FillVerticalArea(8, 0, 3, () => new ConveyorBeltTile(Direction.Down));
+			builder.FillVerticalArea(8, 0, 3, () => new ConveyorBeltTile(OrientationDirection.Down));
 			//builder.FillVerticalArea(8, 0, 3, () => new Tile());
 
 			game.FactoryFloor = builder.Build();

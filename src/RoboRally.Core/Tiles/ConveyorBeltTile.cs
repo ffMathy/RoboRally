@@ -6,9 +6,9 @@ namespace RoboRally.Core.Tiles
 {
 	public class ConveyorBeltTile : Tile
 	{
-		public Direction Direction { get; set; }
+		public OrientationDirection Direction { get; set; }
 
-		public ConveyorBeltTile(Direction direction)
+		public ConveyorBeltTile(OrientationDirection direction)
 		{
 			Direction = direction;
 		}
@@ -23,8 +23,7 @@ namespace RoboRally.Core.Tiles
 
 		public override void AfterMove(int registerOffset)
 		{
-			
-			//Game.AbsoluteRotateRobot(Robot, Direction);
+			Game.AbsoluteRotateRobot(Robot, Direction);
 		}
 	}
 }

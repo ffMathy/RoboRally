@@ -16,7 +16,7 @@ namespace RoboRally.Core
 
 		IPhase CurrentPhase { get; }
 
-		void MoveRobot(IRobot robot, Direction direction);
+		void MoveRobot(IRobot robot, OrientationDirection direction);
 		void RotateRobot(IRobot robot, RotateDirection left);
 
 		void FireLaser(IRobot robot);
