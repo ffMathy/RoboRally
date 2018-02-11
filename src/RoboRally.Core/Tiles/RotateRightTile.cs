@@ -9,7 +9,7 @@ namespace RoboRally.Core.Tiles
     {
 		public override void BeforeMove(int registerOffset)
 		{
-			Game.RelativeRotateRobot(Robot, RotateDirection.Right);
+			Game.RotateRobot(Robot, RotateDirection.Right);
 		}
 	}
 }

@@ -62,12 +62,7 @@ namespace RoboRally.Core
 			throw new NotImplementedException();
 		}
 
-		public void AbsoluteRotateRobot(IRobot robot, Direction direction)
-		{
-			throw new NotImplementedException();
-		}
-
-		public void RelativeRotateRobot(IRobot robot, RotateDirection left)
+		public void RotateRobot(IRobot robot, RotateDirection left)
 		{
 			throw new NotImplementedException();
 		}

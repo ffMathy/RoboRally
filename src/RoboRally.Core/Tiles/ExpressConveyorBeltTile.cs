@@ -24,7 +24,8 @@ namespace RoboRally.Core.Tiles
 
 		public override void AfterMove(int registerOffset)
 		{
-			Game.AbsoluteRotateRobot(Robot, Direction);
+			Game.RotateRobot(Robot, DirectionHelper.RotateDirection(Robot.Direction, ))
+			Game.RelativeRotateRobot(Robot, Direction);
 		}
 	}
 }

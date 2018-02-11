@@ -2,7 +2,7 @@
 {
 	public enum RotateDirection
 	{
-		Left,
-		Right
+		Left = -1,
+		Right = 1
 	}
 }
