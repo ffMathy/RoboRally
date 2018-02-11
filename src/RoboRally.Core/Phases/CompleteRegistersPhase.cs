@@ -30,18 +30,28 @@ namespace RoboRally.Core.Phases
 			var prioritizedTiles = game
 				.FactoryFloor
 				.Tiles
-				.OrderByDescending(x => x.ActPriority);
+				.OrderByDescending(x => x.MovePriority);
 			foreach (var tile in prioritizedTiles) {
-				tile.Act(registerOffset);
+				tile.Move(registerOffset);
 			}
 		}
 
 		private void TouchFlags()
 		{
+			foreach (var player in game.Players)
+			{
+				foreach (var tile in game.FactoryFloor.Tiles)
+				{
+					tile.TouchByRobot(player.Robot);
+				}
+			}
 		}
 
 		private void FireLasers()
 		{
+			foreach(var player in game.Players) {
+				player.Robot.FireLaser();
+			}
 		}
 
 		private void MoveRobots(int registerOffset)

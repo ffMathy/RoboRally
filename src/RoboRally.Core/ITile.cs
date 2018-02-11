@@ -11,11 +11,12 @@ namespace RoboRally.Core
 		ITileRelation Bottom { get; }
 		ITileRelation Right { get; }
 
-		int ActPriority { get; }
+		int MovePriority { get; }
 
 		IRobot Robot { get; }
 		ITileModifier[] Modifiers { get; }
 
-		void Act(int registerOffset);
+		void Move(int registerOffset);
+		void TouchByRobot(IRobot robot);
 	}
 }
