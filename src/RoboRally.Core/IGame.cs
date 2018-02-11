@@ -9,11 +9,18 @@ namespace RoboRally.Core
     public interface IGame
     {
 		IPlayer[] Players { get; }
+		
 		IFactoryFloor FactoryFloor { get; }
 		ICardDeck CardDeck { get; }
 
 		IPhase CurrentPhase { get; }
-		
+
+		void MoveRobot(IRobot robot, Direction direction);
+		void RotateRobot(IRobot robot, Direction direction);
+
+		void FireLaser(IRobot robot);
+		void KillRobot(IRobot robot);
+
 		IDealProgramCardsPhase EnterDealProgramCardsPhase();
 		IProgramRegistersPhase EnterProgramRegistersPhase();
 		IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase();
@@ -21,7 +28,5 @@ namespace RoboRally.Core
 		ICleanupPhase EnterCleanupPhase();
 		
 		void Initialize();
-
-		void FireLaser(IRobot robot);
 	}
 }

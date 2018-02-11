@@ -50,5 +50,20 @@ namespace RoboRally.Core
 		{
 
 		}
+
+		public void KillRobot(IRobot robot)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void MoveRobot(IRobot robot, Direction direction)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RotateRobot(IRobot robot, Direction direction)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

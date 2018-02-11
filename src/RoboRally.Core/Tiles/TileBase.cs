@@ -14,10 +14,15 @@ namespace RoboRally.Core.Tiles
 		public int MovePriority { get; set; }
 
 		public IRobot Robot { get; set; }
+		public IGame Game { get; set; }
 
 		public ITileModifier[] Modifiers { get; set; }
 
-		public virtual void Move(int registerOffset)
+		public virtual void AfterMove(int registerOffset)
+		{
+		}
+
+		public virtual void BeforeMove(int registerOffset)
 		{
 		}
 
