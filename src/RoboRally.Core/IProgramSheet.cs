@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace RoboRally.Core
+{
+    public interface IProgramSheet
+    {
+		int DamageTokenCount { get; }
+		int LifeTokenCount { get; }
+
+		bool IsPoweredDown { get; }
+
+		ICard[] Cards { get; }
+    }
+}
