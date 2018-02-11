@@ -1,4 +1,5 @@
-﻿using RoboRally.Core.Phases;
+﻿using RoboRally.Core.Cards;
+using RoboRally.Core.Phases;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,6 +22,6 @@ namespace RoboRally.Core
 		
 		void Initialize();
 
-		void ExecuteCard(IPlayer player, ICard card);
+		void FireLaser(IRobot robot);
 	}
 }

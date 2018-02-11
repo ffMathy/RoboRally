@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RoboRally.Core.Cards;
 using RoboRally.Core.Phases;
 
 namespace RoboRally.Core
@@ -40,7 +41,7 @@ namespace RoboRally.Core
 			throw new NotImplementedException();
 		}
 
-		public void ExecuteCard(IPlayer player, ICard card)
+		public void FireLaser(IRobot robot)
 		{
 			throw new NotImplementedException();
 		}

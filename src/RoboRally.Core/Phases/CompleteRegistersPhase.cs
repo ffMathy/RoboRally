@@ -19,25 +19,39 @@ namespace RoboRally.Core.Phases
 			for (var registerOffset = 0; registerOffset < 5; registerOffset++)
 			{
 				MoveRobots(registerOffset);
-				MoveBoardElements();
+				MoveBoardElements(registerOffset);
 				FireLasers();
 				TouchFlags();
 			}
 		}
 
-		private void MoveBoardElements()
+		private void MoveBoardElements(int registerOffset)
 		{
-			throw new NotImplementedException();
+			var prioritizedTiles = game
+				.FactoryFloor
+				.Tiles
+				.OrderByDescending(x => x.MovePriority);
+			foreach (var tile in prioritizedTiles) {
+				tile.Move(registerOffset);
+			}
 		}
 
 		private void TouchFlags()
 		{
-			throw new NotImplementedException();
+			foreach (var player in game.Players)
+			{
+				foreach (var tile in game.FactoryFloor.Tiles)
+				{
+					tile.TouchByRobot(player.Robot);
+				}
+			}
 		}
 
 		private void FireLasers()
 		{
-			throw new NotImplementedException();
+			foreach(var player in game.Players) {
+				player.Robot.FireLaser();
+			}
 		}
 
 		private void MoveRobots(int registerOffset)
@@ -48,10 +62,9 @@ namespace RoboRally.Core.Phases
 					Card: player.ProgramSheet.RegisterCards[registerOffset], 
 					Player: player))
 				.OrderByDescending(player => player.Card.Priority);
-			foreach(var instruction in instructions) {
-				game.ExecuteCard(
-					instruction.Player, 
-					instruction.Card);
+			foreach(var instruction in instructions)
+			{
+				instruction.Card.ExecuteOnBehalfOfPlayer(instruction.Player);
 			}
 		}
 	}
