@@ -1,6 +1,7 @@
 ﻿using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Phases;
+using RoboRally.Core.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,8 @@ namespace RoboRally.Core
 
 		IPhase CurrentPhase { get; }
 
-		void MoveRobot(IRobot robot, OrientationDirection direction);
+		ITile MoveRobot(IRobot robot, OrientationDirection direction);
+
 		void RotateRobot(IRobot robot, RotateDirection left);
 
 		void FireLaser(IRobot robot);

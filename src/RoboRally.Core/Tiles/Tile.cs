@@ -18,11 +18,7 @@ namespace RoboRally.Core.Tiles
 
 		public ITileModifier[] Modifiers { get; set; }
 
-		public virtual void AfterMove(int registerOffset)
-		{
-		}
-
-		public virtual void BeforeMove(int registerOffset)
+		public virtual void Move(int registerOffset)
 		{
 		}
 

@@ -32,7 +32,7 @@ namespace RoboRally.Core.Phases
 				.Tiles
 				.OrderByDescending(x => x.MovePriority);
 			foreach (var tile in prioritizedTiles) {
-				tile.BeforeMove(registerOffset);
+				tile.Move(registerOffset);
 			}
 		}
 

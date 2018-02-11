@@ -18,9 +18,7 @@ namespace RoboRally.Core.Tiles
 
 		ITileModifier[] Modifiers { get; }
 
-		void BeforeMove(int registerOffset);
-		void AfterMove(int registerOffset);
-
+		void Move(int registerOffset);
 		void TouchByRobot(IRobot robot);
 	}
 }
