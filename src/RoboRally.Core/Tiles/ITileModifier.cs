@@ -1,4 +1,4 @@
-﻿namespace RoboRally.Core
+﻿namespace RoboRally.Core.Tiles
 {
 	public interface ITileModifier
 	{

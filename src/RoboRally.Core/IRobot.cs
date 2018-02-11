@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoboRally.Core.Tiles;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

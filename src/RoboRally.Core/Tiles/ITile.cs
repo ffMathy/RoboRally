@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RoboRally.Core
+namespace RoboRally.Core.Tiles
 {
     public interface ITile
     {

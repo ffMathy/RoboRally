@@ -1,4 +1,4 @@
-﻿namespace RoboRally.Core
+﻿namespace RoboRally.Core.Cards
 {
 	public interface ICardDeckFactory
 	{
