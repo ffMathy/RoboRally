@@ -20,7 +20,5 @@ namespace RoboRally.Core
 		ICleanupPhase EnterCleanupPhase();
 		
 		void Initialize();
-
-		void ExecuteCard(IPlayer player, ICard card);
 	}
 }

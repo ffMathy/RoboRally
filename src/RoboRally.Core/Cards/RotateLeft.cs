@@ -7,5 +7,12 @@ namespace RoboRally.Core.Cards
 		public int Priority { get; set; }
 
 		public int Count { get; set; }
+
+		public IGame Game => throw new System.NotImplementedException();
+
+		public void ExecuteOnBehalfOfPlayer(IPlayer player)
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }
