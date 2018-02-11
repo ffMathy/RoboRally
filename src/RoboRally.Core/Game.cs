@@ -6,8 +6,15 @@ using RoboRally.Core.Phases;
 
 namespace RoboRally.Core
 {
-	class Game : IGame
+	public class Game : IGame
 	{
+		private readonly ICardDeckFactory _cardDeckFactory;
+
+		public Game(ICardDeckFactory cardDeckFactory)
+		{
+			_cardDeckFactory = cardDeckFactory;
+		}
+
 		public IPlayer[] Players => throw new NotImplementedException();
 
 		public IFactoryFloor FactoryFloor => throw new NotImplementedException();
@@ -48,7 +55,11 @@ namespace RoboRally.Core
 
 		public void Initialize()
 		{
+			var deck = _cardDeckFactory.CreateDeck();
 
+			deck.Shuffle();
+
+			CardDeck = deck;
 		}
 
 		public void KillRobot(IRobot robot)
