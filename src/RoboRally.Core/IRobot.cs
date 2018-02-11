@@ -6,11 +6,12 @@ namespace RoboRally.Core
 {
     public interface IRobot
     {
+		IGame Game { get; }
 		Direction Direction { get; }
 		ITile CurrentTile { get; }
+		ITile ArchiveMarkerPosition { get; }
 
 		ITile[] FlagsTouched { get; }
-		ITile ArchiveMarkerPosition { get; }
 
 		void FireLaser();
 	}
