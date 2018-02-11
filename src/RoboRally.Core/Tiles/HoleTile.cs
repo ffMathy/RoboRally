@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	class HoleTile : TileBase
+	public class HoleTile : Tile
 	{
 		public override void TouchByRobot(IRobot robot)
 		{

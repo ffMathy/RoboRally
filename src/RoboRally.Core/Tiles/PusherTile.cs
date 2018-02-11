@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	class PusherTile : TileBase
+	public class PusherTile : Tile
 	{
 		public Direction Direction { get; set; }
 

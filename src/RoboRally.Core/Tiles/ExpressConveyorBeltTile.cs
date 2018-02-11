@@ -4,9 +4,14 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-    class ExpressConveyorBeltTile : TileBase
+	public class ExpressConveyorBeltTile : Tile
 	{
 		public Direction Direction { get; set; }
+
+		public ExpressConveyorBeltTile(Direction direction)
+		{
+			Direction = direction;
+		}
 
 		public override void BeforeMove(int registerOffset)
 		{
@@ -19,7 +24,7 @@ namespace RoboRally.Core.Tiles
 
 		public override void AfterMove(int registerOffset)
 		{
-			Game.RotateRobot(Robot, Direction);
+			Game.AbsoluteRotateRobot(Robot, Direction);
 		}
 	}
 }

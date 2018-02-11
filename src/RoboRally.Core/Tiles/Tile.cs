@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	class TileBase : ITile
+	public class Tile : ITile
 	{
 		public ITileRelation Left { get; set; }
 		public ITileRelation Top { get; set; }
