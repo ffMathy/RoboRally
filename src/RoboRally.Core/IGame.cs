@@ -9,6 +9,7 @@ namespace RoboRally.Core
     {
 		IPlayer[] Players { get; }
 		IFactoryFloor FactoryFloor { get; }
+		ICardDeck CardDeck { get; }
 
 		IPhase CurrentPhase { get; }
 		
@@ -17,5 +18,7 @@ namespace RoboRally.Core
 		IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase();
 		ICompleteRegistersPhase EnterCompleteRegistersPhase();
 		ICleanupPhase EnterCleanupPhase();
+		
+		void Initialize();
 	}
 }
