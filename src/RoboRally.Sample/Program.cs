@@ -1,5 +1,6 @@
 ﻿using System;
 using RoboRally.Core;
+using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Tiles;
 
@@ -9,11 +10,17 @@ namespace RoboRally.Sample
     {
         static void Main(string[] args)
         {
-			IGame game = null;
-			PopulateFactoryFloorWithExchangeMap(game);
+			var cardDeckFactory = new CardDeckFactory();
 
 			IPlayer player1 = null;
 			IPlayer player2 = null;
+
+			IPlayer[] players = null;
+
+			var deck = cardDeckFactory.CreateDeck();
+
+			IGame game = new Game(deck, players);
+			PopulateFactoryFloorWithExchangeMap(game);
 
 			while (true)
 			{

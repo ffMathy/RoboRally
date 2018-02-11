@@ -9,16 +9,17 @@ namespace RoboRally.Core
 {
 	public class Game : IGame
 	{
-		private readonly ICardDeckFactory _cardDeckFactory;
+		private readonly ICardDeck _cardDeck;
 
-		public Game(ICardDeckFactory cardDeckFactory)
+		public Game(ICardDeck cardDeck, IPlayer[] players)
 		{
-			_cardDeckFactory = cardDeckFactory;
+			_cardDeck = cardDeck;
+			Players = players;
 		}
 
-		public IPlayer[] Players => throw new NotImplementedException();
+		public IPlayer[] Players { get; private set; }
 
-		public ICardDeck CardDeck { get; set; }
+		public ICardDeck CardDeck { get; private set; }
 
 		public IPhase CurrentPhase => throw new NotImplementedException();
 
@@ -56,11 +57,7 @@ namespace RoboRally.Core
 
 		public void Initialize()
 		{
-			var deck = _cardDeckFactory.CreateDeck();
-
-			deck.Shuffle();
-
-			CardDeck = deck;
+			_cardDeck.Shuffle();
 		}
 
 		public void KillRobot(IRobot robot)
