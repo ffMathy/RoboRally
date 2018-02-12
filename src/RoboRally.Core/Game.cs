@@ -92,6 +92,10 @@ namespace RoboRally.Core
 			if (newDamageTokenCount < RobotDamageCapacity) 
 				return;
 
+			var newLifeTokenCount = robot.Player.ProgramSheet.LifeTokenCount--;
+			if (newLifeTokenCount > 0)
+				return;
+
 			var currentRobotTile = robot.CurrentTile;
 			currentRobotTile.Robot = null;
 			robot.CurrentTile = null;

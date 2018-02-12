@@ -8,7 +8,7 @@ namespace RoboRally.Core
     public interface IProgramSheet
     {
 		int DamageTokenCount { get; set; }
-		int LifeTokenCount { get; }
+		int LifeTokenCount { get; set; }
 
 		bool IsPoweredDown { get; set; }
 
