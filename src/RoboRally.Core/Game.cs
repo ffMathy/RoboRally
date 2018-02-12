@@ -10,6 +10,8 @@ namespace RoboRally.Core
 {
 	public class Game : IGame
 	{
+		public event Action RenderRequested;
+
 		private readonly ICardDeckFactory _cardDeckFactory;
 
 		public Game(ICardDeckFactory cardDeckFactory)
@@ -55,7 +57,6 @@ namespace RoboRally.Core
 			ITile nextTile = robot.CurrentTile;
 
 			do {
-
 				var relation = GetTileRelationInDirectionOfTile(nextTile, robot.Direction);
 				if(relation.IsObstructed)
 					return;
@@ -67,6 +68,8 @@ namespace RoboRally.Core
 					DamageRobot(nextTileRobot, 1);
 					
 			} while(nextTile != null);
+
+			FireRenderRequested();
 		}
 
 		public void Initialize()
@@ -86,6 +89,7 @@ namespace RoboRally.Core
 		public void KillRobot(IRobot robot)
 		{
 			DamageRobot(robot, 9 - robot.Player.ProgramSheet.DamageTokenCount);
+			FireRenderRequested();
 		}
 
 		public ITile MoveRobot(IRobot robot, OrientationDirection direction)
@@ -107,12 +111,19 @@ namespace RoboRally.Core
 			newTile.Robot = robot;
 			robot.CurrentTile = newTile;
 
+			FireRenderRequested();
+
 			return newTile;
 		}
 
 		public void RotateRobot(IRobot robot, RotateDirection rotateDirection)
 		{
 			robot.Direction = DirectionHelper.GetRotatedDirection(robot.Direction, rotateDirection);
+			FireRenderRequested();
+		}
+
+		private void FireRenderRequested() {
+			RenderRequested?.Invoke();
 		}
 
 		private ITileRelation GetTileRelationInDirectionOfTile(ITile tile, OrientationDirection direction) {

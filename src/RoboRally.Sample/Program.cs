@@ -48,6 +48,9 @@ namespace RoboRally.Sample
 
 				var cleanup = game.EnterCleanupPhase();
 				cleanup.Commit();
+
+				Console.WriteLine("Press any key to simulate next turn.");
+				Console.ReadLine();
 			}
         }
 	}

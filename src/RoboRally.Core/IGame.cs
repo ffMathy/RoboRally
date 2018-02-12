@@ -10,6 +10,8 @@ namespace RoboRally.Core
 {
     public interface IGame
     {
+		event Action RenderRequested;
+
 		IPlayer[] Players { get; }
 
 		IFactoryFloor FactoryFloor { get; set; }
