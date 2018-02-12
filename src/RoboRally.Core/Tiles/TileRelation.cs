@@ -6,7 +6,7 @@ namespace RoboRally.Core.Tiles
 {
 	class TileRelation : ITileRelation
 	{
-		public bool IsObstructed => throw new NotImplementedException();
+		public bool IsObstructed { get; set; }
 
 		public ITile Tile { get; set; }
 	}

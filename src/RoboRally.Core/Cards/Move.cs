@@ -7,14 +7,16 @@ namespace RoboRally.Core.Cards
 	public class Move : ICard
 	{
 		public MoveDirection Direction { get; set; }
+
 		public int Priority { get; set; }
 		public int Count { get; set; }
 
-		public IGame Game => throw new NotImplementedException();
+		public IGame Game { get; set; }
 
 		public void ExecuteOnBehalfOfPlayer(IPlayer player)
 		{
-			throw new NotImplementedException();
+			for (var i = 0; i < Count; i++)
+				Game.MoveRobot(player.Robot, player.Robot.Direction);
 		}
 	}
 }
