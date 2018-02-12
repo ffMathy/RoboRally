@@ -152,5 +152,11 @@
     <Resource Include="Images\turn_w_r_2.png" />
     <Resource Include="Images\wall_n.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Robot_Down.png" />
+    <Resource Include="Images\Robot_Left.png" />
+    <Resource Include="Images\Robot_Right.png" />
+    <Resource Include="Images\Robot_Up.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
