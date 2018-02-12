@@ -8,5 +8,6 @@ namespace RoboRally.Core
     public interface IHand
     {
 		ICard[] Cards { get; }
-    }
+		void AddCard(ICard card);
+	}
 }

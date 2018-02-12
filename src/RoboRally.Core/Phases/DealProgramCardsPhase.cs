@@ -6,19 +6,36 @@ namespace RoboRally.Core.Phases
 {
 	public class DealProgramCardsPhase : IDealProgramCardsPhase
 	{
+		private IGame _game;
+
+		public IGame Game => throw new NotImplementedException();
+
+		public DealProgramCardsPhase(IGame game)
+		{
+			_game = game;
+		}
+
 		public void Commit()
 		{
-			throw new NotImplementedException();
+			ShuffleDeck();
+			DealCardsToPlayers();
 		}
 
 		private void ShuffleDeck()
 		{
-
+			_game.CardDeck.Shuffle();
 		}
 
 		private void DealCardsToPlayers()
 		{
-
-		}
+			foreach(var player in _game.Players)
+			{
+				int n = 0;
+				while (n < 10)
+				{
+					player.Hand.AddCard(_game.CardDeck.TakeCard());
+				}
+			}
+		}		
 	}
 }
