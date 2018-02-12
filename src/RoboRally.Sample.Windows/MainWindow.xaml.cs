@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+using FormsApplication = System.Windows.Forms.Application;
 
 namespace RoboRally.Sample.Windows
 {
@@ -27,6 +30,38 @@ namespace RoboRally.Sample.Windows
 		{
 			InitializeComponent();
 			_game = game;
+
+			game.RenderRequested += Game_RenderRequested;
+		}
+
+		private void Game_RenderRequested()
+		{
+			Grid.ColumnDefinitions.Clear();
+			Grid.RowDefinitions.Clear();
+
+			for (var x = 0; x < _game.FactoryFloor.Width; x++)
+				Grid.ColumnDefinitions.Add(new ColumnDefinition());
+				
+			for (var y = 0; y < _game.FactoryFloor.Width; y++)
+				Grid.RowDefinitions.Add(new RowDefinition());
+
+			for (var x = 0; x < _game.FactoryFloor.Width; x++)
+			{
+				for (var y = 0; y < _game.FactoryFloor.Width; y++)
+				{
+					var image = new Image();
+					image.Source = new BitmapImage(new Uri("/Images/belt_e.png", UriKind.Relative));
+
+					Grid.SetColumn(image, x);
+					Grid.SetRow(image, y);
+
+					Grid.Children.Add(image);
+				}
+			}
+
+			FormsApplication.DoEvents();
+			Thread.Sleep(3000);
+			FormsApplication.DoEvents();
 		}
 	}
 }

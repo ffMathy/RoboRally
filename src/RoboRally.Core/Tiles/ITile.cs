@@ -11,6 +11,11 @@ namespace RoboRally.Core.Tiles
 		ITileRelation Bottom { get; }
 		ITileRelation Right { get; }
 
+		int X { get; set; }
+		int Y { get; set; }
+
+		string ResourceName { get; }
+
 		int MovePriority { get; }
 
 		IRobot Robot { get; set; }

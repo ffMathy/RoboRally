@@ -80,6 +80,9 @@ namespace RoboRally.Core.FactoryFloor
 					if (tile == null)
 						continue;
 
+					tile.X = x;
+					tile.Y = y;
+
 					if (x > 0)
 						tile.Left.Tile = _tiles[x - 1, y];
 
@@ -114,7 +117,9 @@ namespace RoboRally.Core.FactoryFloor
 
 			return new FactoryFloor()
 			{
-				Tiles = tilesSingleDimensional.ToArray()
+				Tiles = tilesSingleDimensional.ToArray(),
+				Width = _width,
+				Height = _height
 			};
 		}
 	}

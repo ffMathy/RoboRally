@@ -18,6 +18,9 @@ namespace RoboRally.Core.Tiles
 
 		public ITileModifier[] Modifiers { get; set; }
 
+		public int X { get; set; }
+		public int Y { get; set; }
+
 		public Tile()
 		{
 			Left = new TileRelation();

@@ -113,5 +113,42 @@
       <Name>RoboRally.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\belt_e.png" />
+    <Resource Include="Images\belt_e_2.png" />
+    <Resource Include="Images\belt_n.png" />
+    <Resource Include="Images\belt_n_2.png" />
+    <Resource Include="Images\belt_s.png" />
+    <Resource Include="Images\belt_s_2.png" />
+    <Resource Include="Images\belt_up.png" />
+    <Resource Include="Images\belt_w.png" />
+    <Resource Include="Images\belt_w_2.png" />
+    <Resource Include="Images\blank.png" />
+    <Resource Include="Images\gear_l.png" />
+    <Resource Include="Images\gear_r.png" />
+    <Resource Include="Images\pit.png" />
+    <Resource Include="Images\pit_base.png" />
+    <Resource Include="Images\rails.png" />
+    <Resource Include="Images\repair.png" />
+    <Resource Include="Images\repair_2.png" />
+    <Resource Include="Images\start.png" />
+    <Resource Include="Images\turn_e_l.png" />
+    <Resource Include="Images\turn_e_l_2.png" />
+    <Resource Include="Images\turn_e_r.png" />
+    <Resource Include="Images\turn_e_r_2.png" />
+    <Resource Include="Images\turn_n_l.png" />
+    <Resource Include="Images\turn_n_l_2.png" />
+    <Resource Include="Images\turn_n_r.png" />
+    <Resource Include="Images\turn_n_r_2.png" />
+    <Resource Include="Images\turn_s_l.png" />
+    <Resource Include="Images\turn_s_l_2.png" />
+    <Resource Include="Images\turn_s_r.png" />
+    <Resource Include="Images\turn_s_r_2.png" />
+    <Resource Include="Images\turn_w_l.png" />
+    <Resource Include="Images\turn_w_l_2.png" />
+    <Resource Include="Images\turn_w_r.png" />
+    <Resource Include="Images\turn_w_r_2.png" />
+    <Resource Include="Images\wall_n.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
