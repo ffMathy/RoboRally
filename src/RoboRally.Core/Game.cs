@@ -14,10 +14,15 @@ namespace RoboRally.Core
 
 		public event Action RenderRequested;
 
-		public Game(ICardDeckFactory cardDeckFactory, IPlayer[] players)
+		public Game(ICardDeckFactory cardDeckFactory, IPlayerFactory playerFactory, int playerCount)
 		{
-			CardDeck = cardDeckFactory.CreateDeck();
-			Players = players;
+			CardDeck = cardDeckFactory.CreateDeck(this);
+
+			var players = new List<IPlayer>();
+			for (var i = 0; i < playerCount; i++)
+				players.Add(playerFactory.Create(this));
+
+			Players = players.ToArray();
 		}
 
 		public IPlayer[] Players { get; private set; }
@@ -53,7 +58,8 @@ namespace RoboRally.Core
 			return EnterPhase(() => new ProgramRegistersPhase());
 		}
 
-		private TPhase EnterPhase<TPhase>(Func<TPhase> phaseConstructor) where TPhase : IPhase {
+		private TPhase EnterPhase<TPhase>(Func<TPhase> phaseConstructor) where TPhase : IPhase
+		{
 			var phase = phaseConstructor();
 			CurrentPhase = phase;
 
@@ -62,20 +68,25 @@ namespace RoboRally.Core
 
 		public void FireLaser(IRobot robot)
 		{
-			ITile nextTile = robot.CurrentTile;
+			ITile currentTile = robot.CurrentTile;
 
-			do {
-				var relation = GetTileRelationInDirectionOfTile(nextTile, robot.Direction);
-				if(relation.IsObstructed)
-					return;
+			while(true)
+			{
+				var relation = GetTileRelationInDirectionOfTile(currentTile, robot.Direction);
+				if (relation.IsObstructed)
+					break;
 
-				nextTile = relation.Tile;
+				if (relation.Tile == null)
+					break;
 
-				var nextTileRobot = nextTile.Robot;
-				if(nextTileRobot != null)
+				var nextTile = relation.Tile;
+
+				var nextTileRobot = currentTile.Robot;
+				if (nextTileRobot != null)
 					DamageRobot(nextTileRobot, 1);
-					
-			} while(nextTile != null);
+
+				currentTile = nextTile;
+			}
 
 			FireRenderRequested();
 		}
@@ -85,9 +96,10 @@ namespace RoboRally.Core
 			CardDeck.Shuffle();
 		}
 
-		private void DamageRobot(IRobot robot, int damageTokenCount) {
+		private void DamageRobot(IRobot robot, int damageTokenCount)
+		{
 			var newDamageTokenCount = robot.Player.ProgramSheet.DamageTokenCount += damageTokenCount;
-			if (newDamageTokenCount < RobotDamageCapacity) 
+			if (newDamageTokenCount < RobotDamageCapacity)
 				return;
 
 			var newLifeTokenCount = robot.Player.ProgramSheet.LifeTokenCount--;
@@ -111,16 +123,18 @@ namespace RoboRally.Core
 			var relation = GetTileRelationInDirectionOfTile(currentTile, direction);
 			var newTile = relation.Tile;
 
-			if(relation.IsObstructed)
+			if (relation.IsObstructed)
 				return null;
 
 			var existingRobot = newTile.Robot;
-			if(existingRobot != null) { 
+			if (existingRobot != null)
+			{
 				var newTileForExistingRobot = MoveRobot(existingRobot, direction);
 				if (newTileForExistingRobot == null)
 					return null;
 			}
 
+			currentTile.Robot = null;
 			newTile.Robot = robot;
 			robot.CurrentTile = newTile;
 
@@ -135,12 +149,15 @@ namespace RoboRally.Core
 			FireRenderRequested();
 		}
 
-		private void FireRenderRequested() {
+		private void FireRenderRequested()
+		{
 			RenderRequested?.Invoke();
 		}
 
-		private ITileRelation GetTileRelationInDirectionOfTile(ITile tile, OrientationDirection direction) {
-			switch(direction) {
+		private ITileRelation GetTileRelationInDirectionOfTile(ITile tile, OrientationDirection direction)
+		{
+			switch (direction)
+			{
 				case OrientationDirection.Down:
 					return tile.Bottom;
 

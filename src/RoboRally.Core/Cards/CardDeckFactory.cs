@@ -8,7 +8,7 @@ namespace RoboRally.Core.Cards
 
 	class CardDeckFactory : ICardDeckFactory
 	{
-		public ICardDeck CreateDeck()
+		public ICardDeck CreateDeck(IGame game)
 		{
 			var deckSetup = GetDeckSetup();
 
@@ -21,6 +21,7 @@ namespace RoboRally.Core.Cards
 				{
 					var card = type.CardConstructor();
 					card.Priority = priority;
+					card.Game = game;
 
 					priority += type.PriorityModifier;
 					cards.Add(card);

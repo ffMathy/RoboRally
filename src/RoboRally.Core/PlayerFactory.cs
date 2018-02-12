@@ -6,9 +6,9 @@ namespace RoboRally.Core
 {
 	class PlayerFactory : IPlayerFactory
 	{
-		public IPlayer Create()
+		public IPlayer Create(IGame game)
 		{
-			return new Player();
+			return new Player(game);
 		}
 	}
 }

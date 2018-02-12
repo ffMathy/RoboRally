@@ -6,6 +6,6 @@ namespace RoboRally.Core
 {
     public interface IGameFactory
     {
-		IGame Create(IPlayer[] players);
+		IGame Create(int playerCount);
     }
 }

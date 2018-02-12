@@ -6,7 +6,7 @@ namespace RoboRally.Core.Cards
 {
 	public interface ICard
 	{
-		IGame Game { get; }
+		IGame Game { get; set; }
 
 		int Priority { get; set; }
 

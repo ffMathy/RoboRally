@@ -40,22 +40,31 @@ namespace RoboRally.Sample.Windows
 			serviceCollection.AddAssemblyTypesAsImplementedInterfaces(
 				typeof(IGame).Assembly, 
 				typeof(Program).Assembly);
+				
+			serviceCollection.AddSingleton(typeof(IGame), provider =>
+			{
+				var gameFactory = provider.GetService<IGameFactory>();
+				return gameFactory.Create(2);
+			});
 
 			var serviceProvider = serviceCollection.BuildServiceProvider();
-			
-			var playerFactory = serviceProvider.GetService<IPlayerFactory>();
-
-			var player1 = playerFactory.Create();
-			var player2 = playerFactory.Create();
-			
-			var cardDeckFactory = serviceProvider.GetService<ICardDeckFactory>();
-			var deck = cardDeckFactory.CreateDeck();
-			
-			var gameFactory = serviceProvider.GetService<IGameFactory>();
-			var game = gameFactory.Create(new[] { player1, player2 });
+			var game = serviceProvider.GetService<IGame>();
 
 			var mapHelper = serviceProvider.GetService<IMapHelper>();
 			game.FactoryFloor = mapHelper.BuildExchangeMap();
+
+			var playerFactory = serviceProvider.GetService<IPlayerFactory>();
+
+			var player1 = game.Players[0];
+			var player2 = game.Players[1];
+
+			var upperLeftTile = game.FactoryFloor.Tiles[0];
+
+			player1.Robot.CurrentTile = upperLeftTile.Right.Tile.Right.Tile.Bottom.Tile.Bottom.Tile;
+			player1.Robot.CurrentTile.Robot = player1.Robot;
+
+			player2.Robot.CurrentTile = upperLeftTile.Right.Tile.Bottom.Tile.Bottom.Tile;
+			player2.Robot.CurrentTile.Robot = player2.Robot;
 
 			var window = new MainWindow(game);
 			window.Show();
@@ -83,7 +92,7 @@ namespace RoboRally.Sample.Windows
 
 				var announcePowerDown = game.EnterAnnouncePowerDownPhase();
 
-				announcePowerDown.SetPowerDownState(player1, true);
+				announcePowerDown.SetPowerDownState(player1, false);
 				announcePowerDown.SetPowerDownState(player2, false);
 
 				announcePowerDown.Commit();

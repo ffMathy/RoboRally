@@ -13,6 +13,9 @@ namespace RoboRally.Core.Tiles
 
 		public override void Move(int registerOffset)
 		{
+			if (Robot == null)
+				return;
+
 			if (!RegisterOffsets.Contains(registerOffset))
 				return;
 

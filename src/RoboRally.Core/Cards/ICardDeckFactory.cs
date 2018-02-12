@@ -2,6 +2,6 @@
 {
 	public interface ICardDeckFactory
 	{
-		ICardDeck CreateDeck();
+		ICardDeck CreateDeck(IGame game);
 	}
 }

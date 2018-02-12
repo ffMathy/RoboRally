@@ -8,5 +8,10 @@ namespace RoboRally.Core.FactoryFloor
 	class FactoryFloor : IFactoryFloor
 	{
 		public ITile[] Tiles { get; set; }
+
+		public FactoryFloor()
+		{
+
+		}
 	}
 }

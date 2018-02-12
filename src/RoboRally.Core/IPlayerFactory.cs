@@ -6,6 +6,6 @@ namespace RoboRally.Core
 {
     public interface IPlayerFactory
     {
-		IPlayer Create();
+		IPlayer Create(IGame game);
     }
 }

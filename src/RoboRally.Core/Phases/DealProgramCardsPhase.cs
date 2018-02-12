@@ -6,8 +6,10 @@ namespace RoboRally.Core.Phases
 {
 	public class DealProgramCardsPhase : IDealProgramCardsPhase
 	{
+		private const int CardsPerPlayer = 9;
+
 		private IGame _game;
-		
+
 		public DealProgramCardsPhase(IGame game)
 		{
 			_game = game;
@@ -26,14 +28,13 @@ namespace RoboRally.Core.Phases
 
 		private void DealCardsToPlayers()
 		{
-			foreach(var player in _game.Players)
+			foreach (var player in _game.Players)
 			{
-				int n = 0;
-				while (n < 10)
+				for (var i = 0; i < CardsPerPlayer; i++)
 				{
-					player.Hand.AddCard(_game.CardDeck.TakeCard());
+					player.Hand.Cards.Add(_game.CardDeck.TakeCard());
 				}
 			}
-		}		
+		}
 	}
 }

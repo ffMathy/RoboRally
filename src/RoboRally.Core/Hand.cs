@@ -7,11 +7,11 @@ namespace RoboRally.Core
 {
 	public class Hand : IHand
 	{
-		public ICard[] Cards { get; set; }
+		public IList<ICard> Cards { get; private set; }
 
-		public void AddCard(ICard card)
+		public Hand()
 		{
-			Cards[Cards.Length] = card;
+			Cards = new List<ICard>();
 		}
 	}
 }

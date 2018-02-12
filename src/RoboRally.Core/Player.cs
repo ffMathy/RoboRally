@@ -11,5 +11,16 @@ namespace RoboRally.Core
 		public IProgramSheet ProgramSheet { get; set; }
 
 		public IRobot Robot { get; set; }
+
+		public Player(IGame game)
+		{
+			Hand = new Hand();
+			ProgramSheet = new ProgramSheet();
+			Robot = new Robot()
+			{
+				Game = game,
+				Player = this
+			};
+		}
 	}
 }
