@@ -29,7 +29,7 @@ namespace RoboRally.Core.Tiles
 			Game.RotateRobot(newConveyorBeltTile.Robot, rotationDirection);
 
 			if (newConveyorBeltTile is ExpressConveyorBeltTile)
-				Game.MoveRobot(Robot, Direction);
+				Game.MoveRobot(newConveyorBeltTile.Robot, Direction);
 		}
 
 		public override string ToString()
