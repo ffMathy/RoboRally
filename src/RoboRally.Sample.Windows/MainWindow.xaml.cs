@@ -30,7 +30,9 @@ namespace RoboRally.Sample.Windows
 		{
 			InitializeComponent();
 			_game = game;
-
+			this.Width = 70 * _game.FactoryFloor.Width;
+			this.Height = 70 * _game.FactoryFloor.Height;
+			
 			game.RenderRequested += Game_RenderRequested;
 		}
 
@@ -63,7 +65,7 @@ namespace RoboRally.Sample.Windows
 			}
 
 			FormsApplication.DoEvents();
-			//Thread.Sleep(3000);
+			Thread.Sleep(3000);
 			FormsApplication.DoEvents();
 		}
 	}

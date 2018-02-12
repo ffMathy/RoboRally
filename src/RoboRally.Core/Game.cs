@@ -86,7 +86,7 @@ namespace RoboRally.Core
 
 				var nextTile = relation.Tile;
 
-				var nextTileRobot = currentTile.Robot;
+				var nextTileRobot = nextTile.Robot;
 				if (nextTileRobot != null)
 					DamageRobot(nextTileRobot, 1);
 
