@@ -7,6 +7,7 @@ namespace RoboRally.Core.Tiles
 {
 	public class HoleTile : Tile
 	{
+		public string Name => "Hole";
 		public override void Move(int registerOffset)
 		{
 			if (Robot == null)
@@ -15,8 +16,7 @@ namespace RoboRally.Core.Tiles
 			Debug.WriteLine(this + " move");
 			Game.KillRobot(Robot);
 		}
-
-		public override string Name => "Hole";
+		
 		public override string ResourceName => $"{Name}";
 
 		public override string ToString()
