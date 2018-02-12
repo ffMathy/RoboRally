@@ -103,9 +103,9 @@ namespace RoboRally.Core
 
 		private void DamageRobot(IRobot robot, int damageTakenCount)
 		{
-			Debug.WriteLine("Damaging robot " + robot + " by " + damageTakenCount);
-
 			var newDamageTokenCount = robot.Player.ProgramSheet.DamageTokenCount += damageTakenCount;
+			Debug.WriteLine("Damaging robot " + robot + " by " + damageTakenCount + " - now has " + robot.Player.ProgramSheet.DamageTokenCount + " damage tokens");
+
 			if (newDamageTokenCount < RobotDamageCapacity)
 				return;
 
