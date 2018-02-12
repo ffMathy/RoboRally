@@ -7,10 +7,11 @@ namespace RoboRally.Core
 {
 	class Robot : IRobot
 	{
-		public Direction Direction { get; set; }
+		public OrientationDirection Direction { get; set; }
 		public ITile CurrentTile { get; set; }
 		public ITile ArchiveMarkerPosition { get; set; }
 		public IGame Game { get; set; }
+		public IPlayer Player { get; set; }
 
 		public ITile[] FlagsTouched { get; set; }
 

@@ -7,11 +7,11 @@ namespace RoboRally.Core.Tiles
 {
 	public class PusherTile : Tile
 	{
-		public Direction Direction { get; set; }
+		public OrientationDirection Direction { get; set; }
 
 		public int[] RegisterOffsets { get; set; }
 
-		public override void BeforeMove(int registerOffset)
+		public override void Move(int registerOffset)
 		{
 			if (!RegisterOffsets.Contains(registerOffset))
 				return;

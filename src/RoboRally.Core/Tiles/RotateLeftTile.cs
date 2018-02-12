@@ -7,7 +7,7 @@ namespace RoboRally.Core.Tiles
 {
     public class RotateLeftTile : Tile
     {
-		public override void BeforeMove(int registerOffset)
+		public override void Move(int registerOffset)
 		{
 			Game.RotateRobot(Robot, RotateDirection.Left);
 		}

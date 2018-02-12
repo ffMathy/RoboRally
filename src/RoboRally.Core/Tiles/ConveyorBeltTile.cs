@@ -6,25 +6,24 @@ namespace RoboRally.Core.Tiles
 {
 	public class ConveyorBeltTile : Tile
 	{
-		public Direction Direction { get; set; }
+		public OrientationDirection Direction { get; set; }
 
-		public ConveyorBeltTile(Direction direction)
+		public ConveyorBeltTile(OrientationDirection direction)
 		{
 			Direction = direction;
 		}
 
-		public override void BeforeMove(int registerOffset)
+		public override void Move(int registerOffset)
 		{
 			if (Robot == null)
 				return;
 
-			Game.MoveRobot(Robot, Direction);
-		}
+			var newConveyorBeltTile = Game.MoveRobot(Robot, Direction) as ConveyorBeltTile;
+			if(newConveyorBeltTile == null)
+				return;
 
-		public override void AfterMove(int registerOffset)
-		{
-			
-			Game.AbsoluteRotateRobot(Robot, Direction);
+			var rotationDirection = DirectionHelper.GetRotationDirection(Direction, newConveyorBeltTile.Direction);
+			Game.RotateRobot(Robot, rotationDirection);
 		}
 	}
 }

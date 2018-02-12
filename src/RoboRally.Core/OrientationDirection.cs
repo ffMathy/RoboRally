@@ -1,6 +1,6 @@
 ﻿namespace RoboRally.Core
 {
-	public enum Direction
+	public enum OrientationDirection
 	{
 		Up = 0,
 		Right = 1,

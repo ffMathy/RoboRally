@@ -18,11 +18,15 @@ namespace RoboRally.Core.Tiles
 
 		public ITileModifier[] Modifiers { get; set; }
 
-		public virtual void AfterMove(int registerOffset)
+		public Tile()
 		{
+			Left = new TileRelation();
+			Top = new TileRelation();
+			Right = new TileRelation();
+			Bottom = new TileRelation();
 		}
 
-		public virtual void BeforeMove(int registerOffset)
+		public virtual void Move(int registerOffset)
 		{
 		}
 
