@@ -12,6 +12,6 @@ namespace RoboRally.Core
 
 		bool IsPoweredDown { get; }
 
-		ICard[] RegisterCards { get; }
+		ICard[] RegisterCards { get; set; }
     }
 }
