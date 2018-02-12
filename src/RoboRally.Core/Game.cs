@@ -10,6 +10,8 @@ namespace RoboRally.Core
 {
 	public class Game : IGame
 	{
+		private const int RobotDamageCapacity = 10;
+
 		private readonly ICardDeck _cardDeck;
 
 		public event Action RenderRequested;
@@ -87,12 +89,17 @@ namespace RoboRally.Core
 
 		private void DamageRobot(IRobot robot, int damageTokenCount) {
 			var newDamageTokenCount = robot.Player.ProgramSheet.DamageTokenCount += damageTokenCount;
-			throw new NotImplementedException("Death of robots has not been implemented yet.");
+			if (newDamageTokenCount < RobotDamageCapacity) 
+				return;
+
+			var currentRobotTile = robot.CurrentTile;
+			currentRobotTile.Robot = null;
+			robot.CurrentTile = null;
 		}
 
 		public void KillRobot(IRobot robot)
 		{
-			DamageRobot(robot, 9 - robot.Player.ProgramSheet.DamageTokenCount);
+			DamageRobot(robot, RobotDamageCapacity - robot.Player.ProgramSheet.DamageTokenCount);
 			FireRenderRequested();
 		}
 
