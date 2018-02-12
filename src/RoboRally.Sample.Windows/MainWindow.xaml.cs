@@ -49,16 +49,20 @@ namespace RoboRally.Sample.Windows
 			{
 				for (var y = 0; y < _game.FactoryFloor.Width; y++)
 				{
-					var image = new Image();
+					var tile = _game.FactoryFloor.Tiles.First(t => t.X == x && t.Y == y);
 
-					var tile = _game.FactoryFloor.Tiles.First(t => (t.X == x && t.Y == y));
+					var tileImage = new Image();
+					tileImage.Source = new BitmapImage(new Uri($"/Images/{tile.ResourceName}.png", UriKind.Relative));
 
-					image.Source = new BitmapImage(new Uri($"/Images/{tile.ResourceName}.png", UriKind.Relative));
+					Grid.SetColumn(tileImage, x);
+					Grid.SetRow(tileImage, y);
 
-					Grid.SetColumn(image, x);
-					Grid.SetRow(image, y);
+					Grid.Children.Add(tileImage);
 
-					Grid.Children.Add(image);
+					if(tile.Robot != null) {
+						var robotImage = new Image();
+						robotImage.Source = new BitmapImage(new Uri("/Images/{tile.ResourceName}.png"))
+					}
 				}
 			}
 

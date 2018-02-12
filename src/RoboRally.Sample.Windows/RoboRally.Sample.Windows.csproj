@@ -131,7 +131,6 @@
     <Resource Include="Images\gear_r.png" />
     <Resource Include="Images\pit.png" />
     <Resource Include="Images\pit_base.png" />
-    <Resource Include="Images\rails.png" />
     <Resource Include="Images\repair.png" />
     <Resource Include="Images\repair_2.png" />
     <Resource Include="Images\start.png" />
