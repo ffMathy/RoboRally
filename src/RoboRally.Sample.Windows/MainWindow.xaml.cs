@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoboRally.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace RoboRally.Sample.Windows
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+		private readonly IGame _game;
+
+		public MainWindow(IGame game)
 		{
 			InitializeComponent();
+			_game = game;
 		}
 	}
 }

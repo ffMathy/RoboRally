@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using RoboRally.Core;
 using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
@@ -21,6 +22,9 @@ namespace RoboRally.Sample.Windows
 
 			IGame game = new Game(deck, players);
 			game.FactoryFloor = MapHelper.BuildExchangeMap();
+
+			var window = new MainWindow(game);
+			window.Show();
 
 			while (true)
 			{
@@ -58,6 +62,8 @@ namespace RoboRally.Sample.Windows
 
 				Console.WriteLine("Press any key to simulate next turn.");
 				Console.ReadLine();
+
+				Application.DoEvents();
 			}
         }
 	}
