@@ -37,6 +37,9 @@
     <StartupObject>RoboRally.Sample.Windows.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluffySpoon.Extensions.MicrosoftDependencyInjection, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluffySpoon.Extensions.MicrosoftDependencyInjection.1.0.2\lib\netstandard2.0\FluffySpoon.Extensions.MicrosoftDependencyInjection.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
