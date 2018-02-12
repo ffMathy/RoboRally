@@ -36,29 +36,25 @@ namespace RoboRally.Sample.Windows
 		[STAThread]
 		static void Main(string[] args)
 		{
-
-			var cardDeckFactory = new CardDeckFactory();
-
-			IPlayer player1 = null;
-			IPlayer player2 = null;
-
-			IPlayer[] players = null;
-
-			var deck = cardDeckFactory.CreateDeck();
-			var game = new Game(deck, players);
-
 			var serviceCollection = new ServiceCollection();
 			serviceCollection.AddAssemblyTypesAsImplementedInterfaces(
 				typeof(IGame).Assembly, 
 				typeof(Program).Assembly);
 
-			serviceCollection.AddSingleton(typeof(IGame), game);
-
 			var serviceProvider = serviceCollection.BuildServiceProvider();
+			
+			var playerFactory = serviceProvider.GetService<IPlayerFactory>();
+
+			var player1 = playerFactory.Create();
+			var player2 = playerFactory.Create();
+			
+			var cardDeckFactory = serviceProvider.GetService<ICardDeckFactory>();
+			var deck = cardDeckFactory.CreateDeck();
+			
+			var gameFactory = serviceProvider.GetService<IGameFactory>();
+			var game = gameFactory.Create(new[] { player1, player2 });
+
 			var mapHelper = serviceProvider.GetService<IMapHelper>();
-
-			mapHelper.BuildExchangeMap();
-
 			game.FactoryFloor = mapHelper.BuildExchangeMap();
 
 			var window = new MainWindow(game);

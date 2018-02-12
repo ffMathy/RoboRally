@@ -6,7 +6,7 @@ using System.Text;
 namespace RoboRally.Core.Cards
 {
 
-	public class CardDeckFactory : ICardDeckFactory
+	class CardDeckFactory : ICardDeckFactory
 	{
 		public ICardDeck CreateDeck()
 		{

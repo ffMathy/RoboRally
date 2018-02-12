@@ -8,17 +8,15 @@ using RoboRally.Core.Tiles;
 
 namespace RoboRally.Core
 {
-	public class Game : IGame
+	class Game : IGame
 	{
 		private const int RobotDamageCapacity = 10;
 
-		private readonly ICardDeck _cardDeck;
-
 		public event Action RenderRequested;
 
-		public Game(ICardDeck cardDeck, IPlayer[] players)
+		public Game(ICardDeckFactory cardDeckFactory, IPlayer[] players)
 		{
-			_cardDeck = cardDeck;
+			CardDeck = cardDeckFactory.CreateDeck();
 			Players = players;
 		}
 
@@ -84,7 +82,7 @@ namespace RoboRally.Core
 
 		public void Initialize()
 		{
-			_cardDeck.Shuffle();
+			CardDeck.Shuffle();
 		}
 
 		private void DamageRobot(IRobot robot, int damageTokenCount) {
