@@ -7,6 +7,12 @@ namespace RoboRally.Core.Tiles
 {
 	public class PusherTile : Tile
 	{
+		public override string Name => "pusher";
+
+		public PusherTile()
+		{
+			ResourceName = $"{Name}_{Direction}";
+		}
 		public OrientationDirection Direction { get; set; }
 
 		public int[] RegisterOffsets { get; set; }

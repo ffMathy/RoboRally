@@ -18,7 +18,7 @@ namespace RoboRally.Sample.Windows
 			{
 				var classTypes = assembly
 					.GetTypes()
-					.Where(x => x.IsClass);
+					.Where(x => x.IsClass && !x.IsAbstract);
 				foreach (var classType in classTypes)
 				{
 					var implementedInterfaceTypes = classType.GetInterfaces();

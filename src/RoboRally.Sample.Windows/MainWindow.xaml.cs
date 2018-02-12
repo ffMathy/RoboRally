@@ -50,7 +50,10 @@ namespace RoboRally.Sample.Windows
 				for (var y = 0; y < _game.FactoryFloor.Width; y++)
 				{
 					var image = new Image();
-					image.Source = new BitmapImage(new Uri("/Images/belt_e.png", UriKind.Relative));
+
+					var tile = _game.FactoryFloor.Tiles.First(t => (t.X == x && t.Y == y));
+
+					image.Source = new BitmapImage(new Uri($"/Images/{tile.ResourceName}.png", UriKind.Relative));
 
 					Grid.SetColumn(image, x);
 					Grid.SetRow(image, y);
