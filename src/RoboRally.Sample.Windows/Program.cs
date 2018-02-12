@@ -3,7 +3,7 @@ using RoboRally.Core;
 using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Tiles;
 
-namespace RoboRally.Sample
+namespace RoboRally.Sample.Windows
 {
     class Program
     {
