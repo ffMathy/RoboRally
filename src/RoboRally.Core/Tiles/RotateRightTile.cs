@@ -6,8 +6,8 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-    public class RotateRightTile : Tile
-    {
+    public class RotateRightTile : TileBase
+	{
 		public string Name => "RotateRightTile";
 		public override string ResourceName => $"{Name}";
 		public override void Move(int registerOffset)

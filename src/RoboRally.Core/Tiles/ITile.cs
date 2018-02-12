@@ -14,7 +14,7 @@ namespace RoboRally.Core.Tiles
 		int X { get; set; }
 		int Y { get; set; }
 
-		//string ResourceName { get; }
+		string ResourceName { get; }
 
 		int MovePriority { get; }
 

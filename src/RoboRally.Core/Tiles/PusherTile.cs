@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	public class PusherTile : Tile
+	public class PusherTile : TileBase
 	{
 		public string Name => "pusher";
 		public override string ResourceName => $"{Name}_{Direction}";
