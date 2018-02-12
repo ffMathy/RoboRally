@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace RoboRally.Core.Tiles
@@ -18,12 +19,19 @@ namespace RoboRally.Core.Tiles
 			if (Robot == null)
 				return;
 
+			Debug.WriteLine(this + " move");
+
 			var newConveyorBeltTile = Game.MoveRobot(Robot, Direction) as ConveyorBeltTile;
 			if(newConveyorBeltTile == null)
 				return;
 
 			var rotationDirection = DirectionHelper.GetRotationDirection(Direction, newConveyorBeltTile.Direction);
-			Game.RotateRobot(Robot, rotationDirection);
+			Game.RotateRobot(newConveyorBeltTile.Robot, rotationDirection);
+		}
+
+		public override string ToString()
+		{
+			return "[Conveyor belt " + Direction + "]";
 		}
 	}
 }

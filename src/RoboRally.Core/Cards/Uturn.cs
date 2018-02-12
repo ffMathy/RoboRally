@@ -14,5 +14,10 @@ namespace RoboRally.Core.Cards
 		{
 			Game.RotateRobot(player.Robot, RotateDirection.Uturn);
 		}
+
+		public override string ToString()
+		{
+			return "[Uturn]";
+		}
 	}
 }

@@ -6,7 +6,12 @@ namespace RoboRally.Core.Tiles
 {
 	class TileRelation : ITileRelation
 	{
-		public bool IsObstructed { get; set; }
+		private bool _isObstructed;
+
+		public bool IsObstructed { 
+			get => _isObstructed || Tile == null; 
+			set => _isObstructed = value; 
+		}
 
 		public ITile Tile { get; set; }
 	}

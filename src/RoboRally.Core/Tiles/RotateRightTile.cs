@@ -1,6 +1,7 @@
 ﻿using RoboRally.Core.Cards;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace RoboRally.Core.Tiles
@@ -12,7 +13,13 @@ namespace RoboRally.Core.Tiles
 			if (Robot == null)
 				return;
 
+			Debug.WriteLine(this + " move");
 			Game.RotateRobot(Robot, RotateDirection.Right);
+		}
+
+		public override string ToString()
+		{
+			return "[Rotate right]";
 		}
 	}
 }

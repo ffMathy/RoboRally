@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -64,6 +65,7 @@ namespace RoboRally.Core.Phases
 				.OrderByDescending(player => player.Card.Priority);
 			foreach(var instruction in instructions)
 			{
+				Debug.WriteLine("Player " + instruction.Player + " is playing card " + instruction.Card);
 				instruction.Card.ExecuteOnBehalfOfPlayer(instruction.Player);
 			}
 		}

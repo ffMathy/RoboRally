@@ -18,5 +18,10 @@ namespace RoboRally.Core.Cards
 			for (var i = 0; i < Count; i++)
 				Game.MoveRobot(player.Robot, player.Robot.Direction);
 		}
+
+		public override string ToString()
+		{
+			return "[Move " + Direction + " " + Count + "]";
+		}
 	}
 }

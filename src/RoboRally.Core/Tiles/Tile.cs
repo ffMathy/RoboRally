@@ -36,5 +36,10 @@ namespace RoboRally.Core.Tiles
 		public virtual void TouchByRobot(IRobot robot)
 		{
 		}
+
+		public override string ToString()
+		{
+			return "[Tile]";
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
@@ -63,11 +64,15 @@ namespace RoboRally.Core
 			var phase = phaseConstructor();
 			CurrentPhase = phase;
 
+			Debug.WriteLine("Entering phase: " + phase.GetType().Name);
+
 			return phase;
 		}
 
 		public void FireLaser(IRobot robot)
 		{
+			Debug.WriteLine("Firing laser for robot " + robot);
+
 			ITile currentTile = robot.CurrentTile;
 
 			while(true)
@@ -96,13 +101,17 @@ namespace RoboRally.Core
 			CardDeck.Shuffle();
 		}
 
-		private void DamageRobot(IRobot robot, int damageTokenCount)
+		private void DamageRobot(IRobot robot, int damageTakenCount)
 		{
-			var newDamageTokenCount = robot.Player.ProgramSheet.DamageTokenCount += damageTokenCount;
+			Debug.WriteLine("Damaging robot " + robot + " by " + damageTakenCount);
+
+			var newDamageTokenCount = robot.Player.ProgramSheet.DamageTokenCount += damageTakenCount;
 			if (newDamageTokenCount < RobotDamageCapacity)
 				return;
 
 			var newLifeTokenCount = robot.Player.ProgramSheet.LifeTokenCount--;
+			robot.Player.ProgramSheet.DamageTokenCount = 2;
+
 			if (newLifeTokenCount > 0)
 				return;
 
@@ -119,6 +128,8 @@ namespace RoboRally.Core
 
 		public ITile MoveRobot(IRobot robot, OrientationDirection direction)
 		{
+			Debug.WriteLine("Moving robot " + robot + " " + direction);
+
 			var currentTile = robot.CurrentTile;
 			var relation = GetTileRelationInDirectionOfTile(currentTile, direction);
 			var newTile = relation.Tile;
@@ -145,6 +156,8 @@ namespace RoboRally.Core
 
 		public void RotateRobot(IRobot robot, RotateDirection rotateDirection)
 		{
+			Debug.WriteLine("Rotating robot " + robot + " " + rotateDirection);
+
 			robot.Direction = DirectionHelper.GetRotatedDirection(robot.Direction, rotateDirection);
 			FireRenderRequested();
 		}

@@ -19,5 +19,10 @@ namespace RoboRally.Core
 		{
 			Game.FireLaser(this);
 		}
+
+		public override string ToString()
+		{
+			return Player.ToString();
+		}
 	}
 }

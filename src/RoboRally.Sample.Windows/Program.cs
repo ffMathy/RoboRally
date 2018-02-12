@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -103,8 +104,7 @@ namespace RoboRally.Sample.Windows
 				var cleanup = game.EnterCleanupPhase();
 				cleanup.Commit();
 
-				Console.WriteLine("Press any key to simulate next turn.");
-				Console.ReadLine();
+				Debug.WriteLine("Simulating next turn.");
 
 				Application.DoEvents();
 			}

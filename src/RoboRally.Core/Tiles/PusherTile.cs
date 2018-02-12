@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -19,7 +20,13 @@ namespace RoboRally.Core.Tiles
 			if (!RegisterOffsets.Contains(registerOffset))
 				return;
 
+			Debug.WriteLine(this + " move");
 			Game.MoveRobot(Robot, Direction);
+		}
+
+		public override string ToString()
+		{
+			return "[Pusher tile " + RegisterOffsets.Select(x => x.ToString()).Aggregate((a, b) => a + "," + b) + "]";
 		}
 	}
 }

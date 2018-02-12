@@ -15,5 +15,10 @@ namespace RoboRally.Core.Tiles
 			base.Move(registerOffset);
 			base.Move(registerOffset);
 		}
+
+		public override string ToString()
+		{
+			return "[Express conveyor belt " + Direction + "]";
+		}
 	}
 }
