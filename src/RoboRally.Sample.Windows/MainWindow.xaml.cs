@@ -74,7 +74,7 @@ namespace RoboRally.Sample.Windows
 			}
 
 			FormsApplication.DoEvents();
-			Thread.Sleep(300);
+			Thread.Sleep(50);
 			FormsApplication.DoEvents();
 		}
 	}

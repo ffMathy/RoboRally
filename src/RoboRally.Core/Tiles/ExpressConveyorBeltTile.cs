@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace RoboRally.Core.Tiles
@@ -15,8 +16,20 @@ namespace RoboRally.Core.Tiles
 
 		public override void Move(int registerOffset)
 		{
-			base.Move(registerOffset);
-			base.Move(registerOffset);
+			if (Robot == null)
+				return;
+
+			Debug.WriteLine(this + " move");
+
+			var newConveyorBeltTile = Game.MoveRobot(Robot, Direction) as ConveyorBeltTile;
+			if (newConveyorBeltTile == null)
+				return;
+
+			var rotationDirection = DirectionHelper.GetRotationDirection(Direction, newConveyorBeltTile.Direction);
+			Game.RotateRobot(newConveyorBeltTile.Robot, rotationDirection);
+
+			if (newConveyorBeltTile is ExpressConveyorBeltTile)
+				Game.MoveRobot(Robot, Direction);
 		}
 
 		public override string ToString()
