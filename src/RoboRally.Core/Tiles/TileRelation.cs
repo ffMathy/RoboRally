@@ -8,6 +8,6 @@ namespace RoboRally.Core.Tiles
 	{
 		public bool IsObstructed => throw new NotImplementedException();
 
-		public ITile Tile { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public ITile Tile { get; set; }
 	}
 }

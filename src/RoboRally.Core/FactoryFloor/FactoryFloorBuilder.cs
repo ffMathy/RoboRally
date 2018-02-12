@@ -1,5 +1,6 @@
 ﻿using RoboRally.Core.Tiles;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -50,23 +51,23 @@ namespace RoboRally.Core.FactoryFloor
 			int height,
 			Func<ITile> tileConstructor)
 		{
-			for (var currentX = x; currentX <= x + width; currentX++)
+			for (var currentX = x; currentX < x + width; currentX++)
 			{
-				for (var currentY = y; currentY <= currentY + height; currentY++)
+				for (var currentY = y; currentY < y + height; currentY++)
 				{
 					FillTile(currentX, currentY, tileConstructor());
 				}
 			}
 		}
 
-		public void FillHorizontalArea(int x, int y, int toX, Func<ITile> tileConstructor)
+		public void FillHorizontalArea(int x, int y, int width, Func<ITile> tileConstructor)
 		{
-			FillArea(x, y, toX, y, tileConstructor);
+			FillArea(x, y, width, 1, tileConstructor);
 		}
 
-		public void FillVerticalArea(int x, int y, int toY, Func<ITile> tileConstructor)
+		public void FillVerticalArea(int x, int y, int height, Func<ITile> tileConstructor)
 		{
-			FillArea(x, y, x, toY, tileConstructor);
+			FillArea(x, y, 1, height, tileConstructor);
 		}
 
 		private void UpdateAllTileRelations()
@@ -101,12 +102,20 @@ namespace RoboRally.Core.FactoryFloor
 				for (var y = 0; y < _height; y++)
 				{
 					var tile = _tiles[x, y];
-					if(tile == null)
+					if (tile == null)
 						throw new InvalidOperationException("The tile spot at " + x + "," + y + " has not been filled out.");
 				}
 			}
 
-			throw new NotImplementedException();
+			var tilesSingleDimensional = new List<ITile>();
+			foreach(var tile in _tiles) {
+				tilesSingleDimensional.Add(tile);
+			}
+
+			return new FactoryFloor()
+			{
+				Tiles = tilesSingleDimensional.ToArray()
+			};
 		}
 	}
 }

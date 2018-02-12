@@ -24,9 +24,9 @@ namespace RoboRally.Core
 
 		public ICardDeck CardDeck { get; private set; }
 
-		public IPhase CurrentPhase => throw new NotImplementedException();
+		public IPhase CurrentPhase { get; private set; }
 
-		public IFactoryFloor FactoryFloor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public IFactoryFloor FactoryFloor { get; set; }
 
 		public IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase()
 		{
@@ -45,12 +45,18 @@ namespace RoboRally.Core
 
 		public IDealProgramCardsPhase EnterDealProgramCardsPhase()
 		{
-			throw new NotImplementedException();
+			var phase = new DealProgramCardsPhase();
+			CurrentPhase = phase;
+
+			return phase;
 		}
 
 		public IProgramRegistersPhase EnterProgramRegistersPhase()
 		{
-			throw new NotImplementedException();
+			var phase = new ProgramRegistersPhase();
+			CurrentPhase = phase;
+
+			return phase;
 		}
 
 		public void FireLaser(IRobot robot)

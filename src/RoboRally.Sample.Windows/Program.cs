@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using RoboRally.Core;
@@ -8,16 +10,32 @@ using RoboRally.Core.Tiles;
 
 namespace RoboRally.Sample.Windows
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-			var serviceCollection = new ServiceCollection();
-			serviceCollection.
+	public static class Extensions
+	{
+		public static void AddAssemblyTypesAsImplementedInterfaces(this ServiceCollection serviceCollection, params Assembly[] assemblies)
+		{
+			foreach (var assembly in assemblies)
+			{
+				var classTypes = assembly
+					.GetTypes()
+					.Where(x => x.IsClass);
+				foreach (var classType in classTypes)
+				{
+					var implementedInterfaceTypes = classType.GetInterfaces();
+					foreach (var implementedInterfaceType in implementedInterfaceTypes)
+					{
+						serviceCollection.AddTransient(implementedInterfaceType, classType);
+					}
+				}
+			}
+		}
+	}
 
-			var serviceProvider = serviceCollection.BuildServiceProvider();
-
-			MapHelper.BuildExchangeMap();
+	class Program
+	{
+		[STAThread]
+		static void Main(string[] args)
+		{
 
 			var cardDeckFactory = new CardDeckFactory();
 
@@ -27,9 +45,21 @@ namespace RoboRally.Sample.Windows
 			IPlayer[] players = null;
 
 			var deck = cardDeckFactory.CreateDeck();
+			var game = new Game(deck, players);
 
-			IGame game = new Game(deck, players);
-			game.FactoryFloor = MapHelper.BuildExchangeMap();
+			var serviceCollection = new ServiceCollection();
+			serviceCollection.AddAssemblyTypesAsImplementedInterfaces(
+				typeof(IGame).Assembly, 
+				typeof(Program).Assembly);
+
+			serviceCollection.AddSingleton(typeof(IGame), game);
+
+			var serviceProvider = serviceCollection.BuildServiceProvider();
+			var mapHelper = serviceProvider.GetService<IMapHelper>();
+
+			mapHelper.BuildExchangeMap();
+
+			game.FactoryFloor = mapHelper.BuildExchangeMap();
 
 			var window = new MainWindow(game);
 			window.Show();
@@ -73,6 +103,6 @@ namespace RoboRally.Sample.Windows
 
 				Application.DoEvents();
 			}
-        }
+		}
 	}
 }
