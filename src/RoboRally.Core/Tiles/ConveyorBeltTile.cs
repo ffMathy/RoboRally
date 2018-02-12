@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	public class ConveyorBeltTile : Tile
+	public class ConveyorBeltTile : TileBase
 	{
 		public string Name => "ConveyorBelt";
 		public override string ResourceName => $"{Name}_{Direction}";

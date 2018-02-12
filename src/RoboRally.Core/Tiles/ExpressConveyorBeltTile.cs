@@ -6,7 +6,7 @@ namespace RoboRally.Core.Tiles
 {
 	public class ExpressConveyorBeltTile : ConveyorBeltTile
 	{
-		public string Name => "ExpressConveyorBeltTile";
+		public string Name => "ExpressConveyorBelt";
 		public override string ResourceName => $"{Name}_{Direction}";
 		public ExpressConveyorBeltTile(OrientationDirection direction) : base(direction)
 		{

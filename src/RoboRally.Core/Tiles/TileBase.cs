@@ -21,7 +21,7 @@ namespace RoboRally.Core.Tiles
 		public int X { get; set; }
 		public int Y { get; set; }
 
-		public abstract string ResourceName { get; set; }
+		public abstract string ResourceName { get; }
 
 		public TileBase()
 		{

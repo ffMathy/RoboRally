@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	public class HoleTile : Tile
+	public class HoleTile : TileBase
 	{
 		public string Name => "Hole";
 		public override void Move(int registerOffset)
@@ -18,7 +18,7 @@ namespace RoboRally.Core.Tiles
 		}
 		
 		public override string ResourceName => $"{Name}";
-
+		
 		public override string ToString()
 		{
 			return "[Hole]";
