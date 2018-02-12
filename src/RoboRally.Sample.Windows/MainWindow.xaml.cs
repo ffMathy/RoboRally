@@ -61,7 +61,7 @@ namespace RoboRally.Sample.Windows
 
 					if(tile.Robot != null) {
 						var robotImage = new Image();
-						robotImage.Source = new BitmapImage(new Uri("/Images/repair.png", UriKind.Relative));
+						robotImage.Source = new BitmapImage(new Uri($"/Images/Robot_{tile.Robot.Direction}.png", UriKind.Relative));
 
 						Grid.SetColumn(robotImage, x);
 						Grid.SetRow(robotImage, y);
