@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using RoboRally.Core;
 using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
@@ -11,6 +12,13 @@ namespace RoboRally.Sample.Windows
     {
         static void Main(string[] args)
         {
+			var serviceCollection = new ServiceCollection();
+			serviceCollection.
+
+			var serviceProvider = serviceCollection.BuildServiceProvider();
+
+			MapHelper.BuildExchangeMap();
+
 			var cardDeckFactory = new CardDeckFactory();
 
 			IPlayer player1 = null;

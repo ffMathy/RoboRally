@@ -7,28 +7,50 @@ using System.Text;
 
 namespace RoboRally.Sample
 {
-	public static class MapHelper
+	public class MapHelper
 	{
-		public static IFactoryFloor BuildExchangeMap()
+		private static Func<ITile> conveyorBeltUpConstructor = () => new ConveyorBeltTile(OrientationDirection.Up);
+		private static Func<ITile> conveyorBeltDownConstructor = () => new ConveyorBeltTile(OrientationDirection.Down);
+		private static Func<ITile> conveyorBeltRightConstructor = () => new ConveyorBeltTile(OrientationDirection.Right);
+		private static Func<ITile> conveyorBeltLeftConstructor = () => conveyorBeltLeftConstructor();
+
+		private static Func<ITile> expressConveyorBeltUpConstructor = () => new ExpressConveyorBeltTile(OrientationDirection.Up);
+		private static Func<ITile> expressConveyorBeltDownConstructor = () => new ExpressConveyorBeltTile(OrientationDirection.Down);
+		private static Func<ITile> expressConveyorBeltRightConstructor = () => new ExpressConveyorBeltTile(OrientationDirection.Right);
+		private static Func<ITile> expressConveyorBeltLeftConstructor = () => new ExpressConveyorBeltTile(OrientationDirection.Left);
+
+		private static Func<ITile> tileConstructor = () => tileConstructor();
+
+		private static Func<ITile> holeConstructor = () => new HoleTile();
+
+		private readonly IFactoryFloorBuilderFactory _factoryFloorBuilderFactory;
+
+		public MapHelper(IFactoryFloorBuilderFactory factoryFloorBuilderFactory)
 		{
-			IFactoryFloorBuilder builder = null;
+			_factoryFloorBuilderFactory = factoryFloorBuilderFactory;
+		}
+
+		public IFactoryFloor BuildExchangeMap()
+		{
+			IFactoryFloorBuilder builder = _factoryFloorBuilderFactory.Create(12, 12);
 
 			int row;
 
 			//row 1
 			row = 0;
-			builder.FillTile(0, row, new Tile());
-			builder.FillTile(1, row, new ConveyorBeltTile(OrientationDirection.Down));
-			builder.FillTile(5, row, new Tile());
+			builder.FillTile(0, row, tileConstructor());
+			builder.FillTile(1, row, conveyorBeltDownConstructor());
+			builder.FillTile(5, row, tileConstructor());
 
 			//row 2
 			row += 1;
-			builder.FillTile(0, row, new ConveyorBeltTile(OrientationDirection.Left));
+			builder.FillTile(0, row, conveyorBeltLeftConstructor());
 			builder.FillTile(1, row, new RotateRightTile());
-			builder.FillTile(11, row, new HoleTile());
+			builder.FillTile(11, row, holeConstructor());
 
 			//row 3
 			row += 1;
+			builder.FillTile(12, row, tileConstructor());
 
 			//row 4
 			row += 1;
@@ -40,7 +62,7 @@ namespace RoboRally.Sample
 
 			//row 6
 			row += 1;
-			builder.FillTile(11, row, new Tile());
+			builder.FillTile(11, row, tileConstructor());
 
 			//row 7
 			row += 1;
@@ -57,23 +79,53 @@ namespace RoboRally.Sample
 
 			//row 11
 			row += 1;
-			builder.FillTile(0, row, new ConveyorBeltTile(OrientationDirection.Right));
+			builder.FillTile(0, row, conveyorBeltRightConstructor());
 			builder.FillTile(1, row, new RotateRightTile());
-			builder.FillTile(9, row, new HoleTile());
-			builder.FillTile(11, row, new ConveyorBeltTile(OrientationDirection.Right));
+			builder.FillTile(9, row, holeConstructor());
+			builder.FillTile(11, row, conveyorBeltRightConstructor());
 
 			//row 12
 			row += 1;
-			builder.FillTile(1, row, new ConveyorBeltTile(OrientationDirection.Down));
+			builder.FillTile(0, row, tileConstructor());
+			builder.FillTile(1, row, conveyorBeltDownConstructor());
+			builder.FillTile(9, row, tileConstructor());
+			builder.FillTile(11, row, tileConstructor());
 
 			//repeated areas
-			builder.FillVerticalArea(2, 0, 3, () => new Tile());
-			builder.FillVerticalArea(3, 0, 3, () => new ConveyorBeltTile(OrientationDirection.Up));
-			builder.FillVerticalArea(4, 0, 4, () => new Tile());
-			builder.FillVerticalArea(6, 0, 5, () => new ExpressConveyorBeltTile(OrientationDirection.Up));
-			builder.FillVerticalArea(7, 0, 5, () => new Tile());
-			builder.FillVerticalArea(8, 0, 3, () => new ConveyorBeltTile(OrientationDirection.Down));
-			//builder.FillVerticalArea(8, 0, 3, () => new Tile());
+			builder.FillVerticalArea(2, 0, 3, tileConstructor);
+			builder.FillVerticalArea(3, 0, 3, conveyorBeltUpConstructor);
+			builder.FillVerticalArea(4, 0, 4, tileConstructor);
+			builder.FillVerticalArea(6, 0, 5, expressConveyorBeltUpConstructor);
+			builder.FillVerticalArea(7, 0, 5, tileConstructor);
+			builder.FillVerticalArea(8, 0, 3, conveyorBeltDownConstructor);
+			builder.FillVerticalArea(9, 0, 3, tileConstructor);
+			builder.FillHorizontalArea(10, 0, 2, tileConstructor);
+			builder.FillVerticalArea(5, 1, 4, conveyorBeltDownConstructor);
+			builder.FillVerticalArea(11, 1, 2, tileConstructor);
+			builder.FillHorizontalArea(0, 1, 2, tileConstructor);
+			builder.FillHorizontalArea(0, 3, 3, conveyorBeltRightConstructor);
+			builder.FillHorizontalArea(9, 3, 3, conveyorBeltRightConstructor);
+			builder.FillHorizontalArea(0, 4, 4, tileConstructor);
+			builder.FillHorizontalArea(8, 4, 4, tileConstructor);
+			builder.FillHorizontalArea(0, 5, 5, expressConveyorBeltLeftConstructor);
+			builder.FillHorizontalArea(5, 5, 2, tileConstructor);
+			builder.FillHorizontalArea(7, 5, 4, conveyorBeltLeftConstructor);
+			builder.FillHorizontalArea(0, 6, 5, conveyorBeltRightConstructor);
+			builder.FillHorizontalArea(5, 6, 2, tileConstructor);
+			builder.FillHorizontalArea(7, 6, 5, conveyorBeltRightConstructor);
+			builder.FillHorizontalArea(0, 7, 5, tileConstructor);
+			builder.FillVerticalArea(5, 7, 5, conveyorBeltDownConstructor);
+			builder.FillVerticalArea(6, 7, 5, conveyorBeltUpConstructor);
+			builder.FillHorizontalArea(7, 7, 5, tileConstructor);
+			builder.FillHorizontalArea(0, 8, 3, expressConveyorBeltLeftConstructor);
+			builder.FillVerticalArea(3, 8, 4, conveyorBeltUpConstructor);
+			builder.FillVerticalArea(4, 8, 4, tileConstructor);
+			builder.FillVerticalArea(7, 8, 4, tileConstructor);
+			builder.FillHorizontalArea(9, 8, 3, conveyorBeltLeftConstructor);
+			builder.FillHorizontalArea(0, 9, 3, tileConstructor);
+			builder.FillHorizontalArea(9, 9, 3, tileConstructor);
+			builder.FillVerticalArea(2, 10, 2, tileConstructor);
+			builder.FillVerticalArea(10, 10, 2, tileConstructor);
 
 			return builder.Build();
 		}
