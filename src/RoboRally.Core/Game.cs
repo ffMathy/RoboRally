@@ -41,7 +41,7 @@ namespace RoboRally.Core
 
 		public ICleanupPhase EnterCleanupPhase()
 		{
-			return EnterPhase(() => new CleanupPhase());
+			return EnterPhase(() => new CleanupPhase(this));
 		}
 
 		public ICompleteRegistersPhase EnterCompleteRegistersPhase()
