@@ -12,6 +12,8 @@ namespace RoboRally.Core
 	{
 		private readonly ICardDeck _cardDeck;
 
+		public event Action RenderRequested;
+
 		public Game(ICardDeck cardDeck, IPlayer[] players)
 		{
 			_cardDeck = cardDeck;

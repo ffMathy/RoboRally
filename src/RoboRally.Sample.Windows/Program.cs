@@ -10,8 +10,6 @@ namespace RoboRally.Sample.Windows
     {
         static void Main(string[] args)
         {
-			IGame game = null;
-			game.FactoryFloor = MapHelper.BuildExchangeMap();
 			var cardDeckFactory = new CardDeckFactory();
 
 			IPlayer player1 = null;
@@ -22,7 +20,7 @@ namespace RoboRally.Sample.Windows
 			var deck = cardDeckFactory.CreateDeck();
 
 			IGame game = new Game(deck, players);
-			PopulateFactoryFloorWithExchangeMap(game);
+			game.FactoryFloor = MapHelper.BuildExchangeMap();
 
 			while (true)
 			{
