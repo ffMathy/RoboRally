@@ -16,6 +16,9 @@ namespace RoboRally.Core.Tiles
 			Game.KillRobot(Robot);
 		}
 
+		public override string Name => "Hole";
+		public override string ResourceName => $"{Name}";
+
 		public override string ToString()
 		{
 			return "[Hole]";
