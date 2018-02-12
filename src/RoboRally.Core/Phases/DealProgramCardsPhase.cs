@@ -7,9 +7,7 @@ namespace RoboRally.Core.Phases
 	public class DealProgramCardsPhase : IDealProgramCardsPhase
 	{
 		private IGame _game;
-
-		public IGame Game => throw new NotImplementedException();
-
+		
 		public DealProgramCardsPhase(IGame game)
 		{
 			_game = game;
