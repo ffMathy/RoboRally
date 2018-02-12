@@ -10,8 +10,8 @@ namespace RoboRally.Core
 		int DamageTokenCount { get; set; }
 		int LifeTokenCount { get; }
 
-		bool IsPoweredDown { get; }
+		bool IsPoweredDown { get; set; }
 
-		ICard[] RegisterCards { get; }
+		ICard[] RegisterCards { get; set; }
     }
 }

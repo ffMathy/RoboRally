@@ -21,7 +21,7 @@ namespace RoboRally.Core
 
 		ITile MoveRobot(IRobot robot, OrientationDirection direction);
 
-		void RotateRobot(IRobot robot, RotateDirection left);
+		void RotateRobot(IRobot robot, RotateDirection direction);
 
 		void FireLaser(IRobot robot);
 		void KillRobot(IRobot robot);

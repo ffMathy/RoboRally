@@ -7,11 +7,11 @@ namespace RoboRally.Core.Phases
 {
 	class CompleteRegistersPhase : ICompleteRegistersPhase
 	{
-		private readonly IGame game;
+		private readonly IGame _game;
 
 		public CompleteRegistersPhase(IGame game)
 		{
-			this.game = game;
+			_game = game;
 		}
 
 		public void Commit()
@@ -27,7 +27,7 @@ namespace RoboRally.Core.Phases
 
 		private void MoveBoardElements(int registerOffset)
 		{
-			var prioritizedTiles = game
+			var prioritizedTiles = _game
 				.FactoryFloor
 				.Tiles
 				.OrderByDescending(x => x.MovePriority);
@@ -38,9 +38,9 @@ namespace RoboRally.Core.Phases
 
 		private void TouchFlags()
 		{
-			foreach (var player in game.Players)
+			foreach (var player in _game.Players)
 			{
-				foreach (var tile in game.FactoryFloor.Tiles)
+				foreach (var tile in _game.FactoryFloor.Tiles)
 				{
 					tile.TouchByRobot(player.Robot);
 				}
@@ -49,14 +49,14 @@ namespace RoboRally.Core.Phases
 
 		private void FireLasers()
 		{
-			foreach(var player in game.Players) {
+			foreach(var player in _game.Players) {
 				player.Robot.FireLaser();
 			}
 		}
 
 		private void MoveRobots(int registerOffset)
 		{
-			var instructions = game
+			var instructions = _game
 				.Players
 				.Select(player => (
 					Card: player.ProgramSheet.RegisterCards[registerOffset], 

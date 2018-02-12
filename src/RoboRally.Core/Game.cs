@@ -30,30 +30,31 @@ namespace RoboRally.Core
 
 		public IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase()
 		{
-			throw new NotImplementedException();
+			return EnterPhase(() => new AnnouncePowerDownPhase());
 		}
 
 		public ICleanupPhase EnterCleanupPhase()
 		{
-			throw new NotImplementedException();
+			return EnterPhase(() => new CleanupPhase());
 		}
 
 		public ICompleteRegistersPhase EnterCompleteRegistersPhase()
 		{
-			throw new NotImplementedException();
+			return EnterPhase(() => new CompleteRegistersPhase(this));
 		}
 
 		public IDealProgramCardsPhase EnterDealProgramCardsPhase()
 		{
-			var phase = new DealProgramCardsPhase();
-			CurrentPhase = phase;
-
-			return phase;
+			return EnterPhase(() => new DealProgramCardsPhase());
 		}
 
 		public IProgramRegistersPhase EnterProgramRegistersPhase()
 		{
-			var phase = new ProgramRegistersPhase();
+			return EnterPhase(() => new ProgramRegistersPhase());
+		}
+
+		private TPhase EnterPhase<TPhase>(Func<TPhase> phaseConstructor) where TPhase : IPhase {
+			var phase = phaseConstructor();
 			CurrentPhase = phase;
 
 			return phase;

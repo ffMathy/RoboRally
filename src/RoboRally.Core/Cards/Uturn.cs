@@ -8,11 +8,11 @@ namespace RoboRally.Core.Cards
     {
 		public int Priority { get; set; }
 
-		public IGame Game => throw new NotImplementedException();
+		public IGame Game { get; set; }
 
 		public void ExecuteOnBehalfOfPlayer(IPlayer player)
 		{
-			throw new NotImplementedException();
+			Game.RotateRobot(player.Robot, RotateDirection.Uturn);
 		}
 	}
 }
