@@ -45,7 +45,7 @@ namespace RoboRally.Core
 
 		public IDealProgramCardsPhase EnterDealProgramCardsPhase()
 		{
-			return EnterPhase(() => new DealProgramCardsPhase());
+			return EnterPhase(() => new DealProgramCardsPhase(game));
 		}
 
 		public IProgramRegistersPhase EnterProgramRegistersPhase()
