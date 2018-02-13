@@ -15,6 +15,8 @@ namespace RoboRally.Core
 
 		ITile[] FlagsTouched { get; }
 
+		int LastMovedRegisterOffset { get; set; }
+
 		void FireLaser();
 	}
 }

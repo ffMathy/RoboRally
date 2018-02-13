@@ -7,8 +7,7 @@ namespace RoboRally.Core.Tiles
 {
 	public class ConveyorBeltTile : TileBase
 	{
-		public string Name => "ConveyorBelt";
-		public override string ResourceName => $"{Name}_{Direction}";
+		public override string ResourceName => $"ConveyorBelt_{Direction}";
 		public OrientationDirection Direction { get; set; }
 
 		public ConveyorBeltTile(OrientationDirection direction)

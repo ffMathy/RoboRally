@@ -8,8 +8,8 @@ namespace RoboRally.Core.Tiles
 {
     public class RotateLeftTile : TileBase
 	{
-		public string Name => "RotateLeftTile";
-		public override string ResourceName => $"{Name}";
+		public override string ResourceName => $"RotateLeftTile";
+
 		public override void Move(int registerOffset)
 		{
 			if (Robot == null)

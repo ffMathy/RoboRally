@@ -6,7 +6,6 @@ namespace RoboRally.Core.Tiles
 {
 	public class Tile : TileBase
 	{
-		public string Name => "tile";
-		public override string ResourceName => $"{Name}";
+		public override string ResourceName => $"Tile";
 	}
 }

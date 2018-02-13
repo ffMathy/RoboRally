@@ -7,8 +7,7 @@ namespace RoboRally.Core.Tiles
 {
 	public class ExpressConveyorBeltTile : ConveyorBeltTile
 	{
-		public string Name => "ExpressConveyorBelt";
-		public override string ResourceName => $"{Name}_{Direction}";
+		public override string ResourceName => $"ExpressConveyorBelt_{Direction}";
 		public ExpressConveyorBeltTile(OrientationDirection direction) : base(direction)
 		{
 
@@ -16,20 +15,21 @@ namespace RoboRally.Core.Tiles
 
 		public override void Move(int registerOffset)
 		{
-			if (Robot == null)
+			var robot = Robot;
+			if (robot == null)
 				return;
 
 			Debug.WriteLine(this + " move");
 
-			var newConveyorBeltTile = Game.MoveRobot(Robot, Direction) as ConveyorBeltTile;
+			var newConveyorBeltTile = Game.MoveRobot(robot, Direction) as ConveyorBeltTile;
 			if (newConveyorBeltTile == null)
 				return;
 
 			var rotationDirection = DirectionHelper.GetRotationDirection(Direction, newConveyorBeltTile.Direction);
-			Game.RotateRobot(newConveyorBeltTile.Robot, rotationDirection);
+			Game.RotateRobot(robot, rotationDirection);
 
 			if (newConveyorBeltTile is ExpressConveyorBeltTile)
-				Game.MoveRobot(newConveyorBeltTile.Robot, Direction);
+				Game.MoveRobot(robot, Direction);
 		}
 
 		public override string ToString()

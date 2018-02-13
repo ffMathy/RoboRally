@@ -48,8 +48,7 @@ namespace RoboRally.Core.Cards
 			{
 				CardConstructor = () => new Rotate
 				{
-					Direction = RotateDirection.Left,
-					
+					Direction = RotateDirection.Left
 				},
 				StartPriority = 70, 
 				EndPriority = 410, 

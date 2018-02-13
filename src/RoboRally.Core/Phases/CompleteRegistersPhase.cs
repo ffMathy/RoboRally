@@ -31,8 +31,14 @@ namespace RoboRally.Core.Phases
 			var prioritizedTiles = _game
 				.FactoryFloor
 				.Tiles
-				.OrderByDescending(x => x.MovePriority);
-			foreach (var tile in prioritizedTiles) {
+				.OrderByDescending(x => x.MovePriority)
+				.Where(x => x.Robot != null);
+			foreach (var tile in prioritizedTiles)
+			{
+				if (tile.Robot.LastMovedRegisterOffset == registerOffset)
+					continue;
+
+				tile.Robot.LastMovedRegisterOffset = registerOffset;
 				tile.Move(registerOffset);
 			}
 		}
@@ -50,7 +56,8 @@ namespace RoboRally.Core.Phases
 
 		private void FireLasers()
 		{
-			foreach(var player in _game.Players) {
+			foreach (var player in _game.Players)
+			{
 				player.Robot.FireLaser();
 			}
 		}
@@ -60,10 +67,11 @@ namespace RoboRally.Core.Phases
 			var instructions = _game
 				.Players
 				.Select(player => (
-					Card: player.ProgramSheet.RegisterCards[registerOffset], 
+					Card: player.ProgramSheet.RegisterCards[registerOffset],
 					Player: player))
 				.OrderByDescending(player => player.Card.Priority);
-			foreach(var instruction in instructions)
+
+			foreach (var instruction in instructions)
 			{
 				Debug.WriteLine("Player " + instruction.Player + " is playing card " + instruction.Card);
 				instruction.Card.ExecuteOnBehalfOfPlayer(instruction.Player);
