@@ -8,12 +8,16 @@ namespace RoboRally.Core.Phases
 	{
 		private const int CardsPerPlayer = 9;
 
-		private IGame _game;
+		private readonly IGame _game;
+        private readonly IActionStepper _actionStepper;
 
-		public DealProgramCardsPhase(IGame game)
+        public DealProgramCardsPhase(
+            IGame game,
+            IActionStepper actionStepper)
 		{
 			_game = game;
-		}
+            _actionStepper = actionStepper;
+        }
 
 		public void Commit()
 		{
@@ -36,5 +40,12 @@ namespace RoboRally.Core.Phases
 				}
 			}
 		}
-	}
+
+        public bool Step()
+        {
+            return _actionStepper.Step(
+                ShuffleDeck,
+                DealCardsToPlayers);
+        }
+    }
 }

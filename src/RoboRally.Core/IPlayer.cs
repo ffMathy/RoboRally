@@ -9,5 +9,7 @@ namespace RoboRally.Core
 		IHand Hand { get; }
 		IProgramSheet ProgramSheet { get; }
 		IRobot Robot { get; }
+
+        string Label { get; }
     }
 }

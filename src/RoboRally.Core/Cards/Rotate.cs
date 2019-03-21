@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace RoboRally.Core.Cards
 {
     public class Rotate : ICard
@@ -8,7 +10,21 @@ namespace RoboRally.Core.Cards
 
 		public IGame Game { get; set; }
 
-		public void ExecuteOnBehalfOfPlayer(IPlayer player)
+        public string ResourceName
+        {
+            get
+            {
+                if (Direction == RotateDirection.Left)
+                    return "rotate_left";
+
+                if (Direction == RotateDirection.Right)
+                    return "rotate_right";
+
+                throw new InvalidOperationException("Unknown rotate direction.");
+            }
+        }
+
+        public void ExecuteOnBehalfOfPlayer(IPlayer player)
 		{
 			Game.RotateRobot(player.Robot, RotateDirection.Left);
 		}

@@ -25,21 +25,24 @@ namespace RoboRally.Core.Phases
 			GetPendingPlayerCards(player).Remove(card);
 		}
 
-		public void Commit()
-		{
-			foreach(var item in _pendingCards) {
-				var player = item.Key;
-				var cards = item.Value;
-
-				player.ProgramSheet.RegisterCards = cards.ToArray();
-			}
-		}
-
 		private IList<ICard> GetPendingPlayerCards(IPlayer player) {
 			if (!_pendingCards.ContainsKey(player))
 				_pendingCards.Add(player, new List<ICard>());
 
 			return _pendingCards[player];
 		}
-	}
+
+        public bool Step()
+        {
+            foreach (var item in _pendingCards)
+            {
+                var player = item.Key;
+                var cards = item.Value;
+
+                player.ProgramSheet.RegisterCards = cards.ToArray();
+            }
+
+            return true;
+        }
+    }
 }

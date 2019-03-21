@@ -2,6 +2,6 @@
 {
 	public interface IPhase
 	{
-		void Commit();
+        bool Step();
 	}
 }

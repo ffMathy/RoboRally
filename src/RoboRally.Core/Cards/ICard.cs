@@ -10,6 +10,8 @@ namespace RoboRally.Core.Cards
 
 		int Priority { get; set; }
 
+        string ResourceName { get; }
+
 		void ExecuteOnBehalfOfPlayer(IPlayer player);
 	}
 }

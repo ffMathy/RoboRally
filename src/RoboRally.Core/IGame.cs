@@ -31,5 +31,7 @@ namespace RoboRally.Core
 		IAnnouncePowerDownPhase EnterAnnouncePowerDownPhase();
 		ICompleteRegistersPhase EnterCompleteRegistersPhase();
 		ICleanupPhase EnterCleanupPhase();
+
+        void Step();
 	}
 }

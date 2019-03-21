@@ -9,24 +9,19 @@ namespace RoboRally.Core.Phases
 	class CompleteRegistersPhase : ICompleteRegistersPhase
 	{
 		private readonly IGame _game;
+        private readonly IActionStepper _actionStepper;
 
-		public CompleteRegistersPhase(IGame game)
+        private int _registerOffset;
+
+        public CompleteRegistersPhase(
+            IGame game,
+            IActionStepper actionStepper)
 		{
 			_game = game;
-		}
+            _actionStepper = actionStepper;
+        }
 
-		public void Commit()
-		{
-			for (var registerOffset = 0; registerOffset < 5; registerOffset++)
-			{
-				MoveRobots(registerOffset);
-				MoveBoardElements(registerOffset);
-				FireLasers();
-				TouchFlags();
-			}
-		}
-
-		private void MoveBoardElements(int registerOffset)
+		private void MoveBoardElements()
 		{
 			var prioritizedTiles = _game
 				.FactoryFloor
@@ -35,11 +30,11 @@ namespace RoboRally.Core.Phases
 				.Where(x => x.Robot != null);
 			foreach (var tile in prioritizedTiles)
 			{
-				if (tile.Robot.LastMovedRegisterOffset == registerOffset)
+				if (tile.Robot.LastMovedRegisterOffset == _registerOffset)
 					continue;
 
-				tile.Robot.LastMovedRegisterOffset = registerOffset;
-				tile.Move(registerOffset);
+				tile.Robot.LastMovedRegisterOffset = _registerOffset;
+				tile.Move(_registerOffset);
 			}
 		}
 
@@ -62,12 +57,12 @@ namespace RoboRally.Core.Phases
 			}
 		}
 
-		private void MoveRobots(int registerOffset)
+		private void MoveRobots()
 		{
 			var instructions = _game
 				.Players
 				.Select(player => (
-					Card: player.ProgramSheet.RegisterCards[registerOffset],
+					Card: player.ProgramSheet.RegisterCards[_registerOffset],
 					Player: player))
 				.OrderByDescending(player => player.Card.Priority);
 
@@ -77,5 +72,21 @@ namespace RoboRally.Core.Phases
 				instruction.Card.ExecuteOnBehalfOfPlayer(instruction.Player);
 			}
 		}
-	}
+
+        public bool Step()
+        {
+            var hasFinished = _actionStepper.Step(
+                MoveRobots,
+                MoveBoardElements,
+                FireLasers,
+                TouchFlags);
+            if (hasFinished)
+                _registerOffset++;
+
+            if (_registerOffset == 5)
+                return true;
+
+            return false;
+        }
+    }
 }

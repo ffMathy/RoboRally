@@ -14,7 +14,9 @@ namespace RoboRally.Core
 		public IProgramSheet ProgramSheet { get; set; }
 		public IRobot Robot { get; set; }
 
-		public Player(IGame game)
+        public string Label => ToString();
+
+        public Player(IGame game)
 		{
 			_id = ++Id;
 

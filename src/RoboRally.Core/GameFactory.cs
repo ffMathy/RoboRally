@@ -9,18 +9,25 @@ namespace RoboRally.Core
     {
 		private readonly ICardDeckFactory _cardDeckFactory;
 		private readonly IPlayerFactory _playerFactory;
+        private readonly IActionStepper _actionStepper;
 
-		public GameFactory(
+        public GameFactory(
 			ICardDeckFactory cardDeckFactory,
-			IPlayerFactory playerFactory)
+			IPlayerFactory playerFactory,
+            IActionStepper actionStepper)
 		{
 			_cardDeckFactory = cardDeckFactory;
 			_playerFactory = playerFactory;
-		}
+            _actionStepper = actionStepper;
+        }
 
 		public IGame Create(int playerCount)
 		{
-			return new Game(_cardDeckFactory, _playerFactory, playerCount);
+			return new Game(
+                _cardDeckFactory, 
+                _playerFactory, 
+                _actionStepper,
+                playerCount);
 		}
 	}
 }

@@ -10,7 +10,9 @@ namespace RoboRally.Core.Cards
 
 		public IGame Game { get; set; }
 
-		public void ExecuteOnBehalfOfPlayer(IPlayer player)
+        public string ResourceName => "u_turn";
+
+        public void ExecuteOnBehalfOfPlayer(IPlayer player)
 		{
 			Game.RotateRobot(player.Robot, RotateDirection.Uturn);
 		}

@@ -6,19 +6,24 @@ namespace RoboRally.Core.Phases
 {
 	class CleanupPhase : ICleanupPhase
 	{
-		private IGame _game;
+		private readonly IGame _game;
+        private readonly IActionStepper _actionStepper;
 
-		public CleanupPhase(IGame game)
+        public CleanupPhase(
+            IGame game,
+            IActionStepper actionStepper)
 		{
 			_game = game;
-		}
+            _actionStepper = actionStepper;
+        }
 
-		public void Commit()
-		{
-			ReturnPlayerCards();
-		}
+        public bool Step()
+        {
+            return _actionStepper.Step(
+                ReturnPlayerCards);
+        }
 
-		private void ReturnPlayerCards()
+        private void ReturnPlayerCards()
 		{
 			foreach (var player in _game.Players)
 			{
