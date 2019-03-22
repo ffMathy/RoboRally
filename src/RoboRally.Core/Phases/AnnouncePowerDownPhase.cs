@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Phases
+﻿namespace RoboRally.Core.Phases
 {
-	class AnnouncePowerDownPhase : IAnnouncePowerDownPhase
+    class AnnouncePowerDownPhase : IAnnouncePowerDownPhase
 	{
 		public void SetPowerDownState(IPlayer player, bool willPowerDown)
 		{

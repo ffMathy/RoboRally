@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Cards
+﻿namespace RoboRally.Core.Cards
 {
     public class Uturn : ICard
     {

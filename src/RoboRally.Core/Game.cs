@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using RoboRally.Core.Cards;
 using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Phases;
@@ -9,7 +8,7 @@ using RoboRally.Core.Tiles;
 
 namespace RoboRally.Core
 {
-	class Game : IGame
+    class Game : IGame
 	{
 		private const int RobotDamageCapacity = 10;
 
@@ -33,7 +32,7 @@ namespace RoboRally.Core
 
             _actionStepper = actionStepper;
 
-            EnterDealProgramCardsPhase();
+            Step();
         }
 
 		public IPlayer[] Players { get; private set; }
@@ -66,7 +65,7 @@ namespace RoboRally.Core
 
 		public IProgramRegistersPhase EnterProgramRegistersPhase()
 		{
-			return EnterPhase(() => new ProgramRegistersPhase());
+			return EnterPhase(() => new ProgramRegistersPhase(this));
 		}
 
 		private TPhase EnterPhase<TPhase>(Func<TPhase> phaseConstructor) where TPhase : IPhase
@@ -216,7 +215,7 @@ namespace RoboRally.Core
 
         public void Step()
         {
-            var isPhaseFinished = CurrentPhase.Step();
+            var isPhaseFinished = CurrentPhase?.Step() ?? true;
 
             FireRenderRequested();
 

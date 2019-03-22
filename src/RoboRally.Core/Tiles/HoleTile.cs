@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace RoboRally.Core.Tiles
 {
-	public class HoleTile : TileBase
+    public class HoleTile : TileBase
 	{
 		public override string ResourceName => $"Hole";
 

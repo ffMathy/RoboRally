@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Phases
+﻿namespace RoboRally.Core.Phases
 {
-	public class DealProgramCardsPhase : IDealProgramCardsPhase
+    public class DealProgramCardsPhase : IDealProgramCardsPhase
 	{
 		private const int CardsPerPlayer = 9;
 
@@ -34,6 +30,7 @@ namespace RoboRally.Core.Phases
 		{
 			foreach (var player in _game.Players)
 			{
+                player.Hand.Cards.Clear();
 				for (var i = 0; i < CardsPerPlayer; i++)
 				{
 					player.Hand.Cards.Add(_game.CardDeck.TakeCard());

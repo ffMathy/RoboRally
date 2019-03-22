@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core
+﻿namespace RoboRally.Core
 {
-	class PlayerFactory : IPlayerFactory
+    class PlayerFactory : IPlayerFactory
 	{
 		public IPlayer Create(IGame game)
 		{

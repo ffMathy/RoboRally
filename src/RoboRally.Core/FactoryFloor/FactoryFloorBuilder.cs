@@ -1,12 +1,10 @@
 ﻿using RoboRally.Core.Tiles;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Core.FactoryFloor
 {
-	class FactoryFloorBuilder : IFactoryFloorBuilder
+    class FactoryFloorBuilder : IFactoryFloorBuilder
 	{
 		private readonly IGame _game;
 

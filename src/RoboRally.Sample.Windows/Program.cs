@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using RoboRally.Core;
-using RoboRally.Core.Cards;
-using RoboRally.Core.FactoryFloor;
-using RoboRally.Core.Tiles;
 using FluffySpoon.Extensions.MicrosoftDependencyInjection;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace RoboRally.Sample.Windows

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Tiles
+﻿namespace RoboRally.Core.Tiles
 {
-	class TileRelation : ITileRelation
+    class TileRelation : ITileRelation
 	{
 		private bool _isObstructed;
 

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RoboRally.Core.Tiles;
+﻿using RoboRally.Core.Tiles;
 
 namespace RoboRally.Core.FactoryFloor
 {
-	class FactoryFloor : IFactoryFloor
+    class FactoryFloor : IFactoryFloor
 	{
 		public ITile[] Tiles { get; set; }
 

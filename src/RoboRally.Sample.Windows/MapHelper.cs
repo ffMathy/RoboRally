@@ -2,12 +2,10 @@
 using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Tiles;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Sample
 {
-	public class MapHelper : IMapHelper
+    public class MapHelper : IMapHelper
 	{
 		private static Func<ITile> conveyorBeltUpConstructor = () => new ConveyorBeltTile(OrientationDirection.Up);
 		private static Func<ITile> conveyorBeltDownConstructor = () => new ConveyorBeltTile(OrientationDirection.Down);

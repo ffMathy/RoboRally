@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Tiles
+﻿namespace RoboRally.Core.Tiles
 {
-	public abstract class TileBase : ITile
+    public abstract class TileBase : ITile
 	{
 		public ITileRelation Left { get; set; }
 		public ITileRelation Top { get; set; }

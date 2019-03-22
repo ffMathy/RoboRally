@@ -1,8 +1,4 @@
-﻿using RoboRally.Core.Cards;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace RoboRally.Core.Tiles
 {

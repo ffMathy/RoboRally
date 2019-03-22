@@ -1,11 +1,8 @@
 ﻿using RoboRally.Core.Tiles;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Core
 {
-	class Robot : IRobot
+    class Robot : IRobot
 	{
 		public OrientationDirection Direction { get; set; }
 		public ITile CurrentTile { get; set; }

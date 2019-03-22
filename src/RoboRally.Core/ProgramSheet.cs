@@ -1,4 +1,5 @@
 ﻿using RoboRally.Core.Cards;
+using System.Collections.Generic;
 
 namespace RoboRally.Core
 {
@@ -8,6 +9,11 @@ namespace RoboRally.Core
 		public int LifeTokenCount { get; set; }
 		public bool IsPoweredDown { get; set; }
 
-		public ICard[] RegisterCards { get; set; }
+		public IList<ICard> RegisterCards { get; set; }
+
+        public ProgramSheet()
+        {
+            RegisterCards = new List<ICard>();
+        }
 	}
 }

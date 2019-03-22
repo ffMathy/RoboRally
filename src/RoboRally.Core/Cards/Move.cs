@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Core.Cards
 {
-	public class Move : ICard
+    public class Move : ICard
 	{
 		public MoveDirection Direction { get; set; }
 

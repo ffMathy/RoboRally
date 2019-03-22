@@ -3,8 +3,6 @@ using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Phases;
 using RoboRally.Core.Tiles;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Core
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace RoboRally.Core.Phases
 {
-	class CompleteRegistersPhase : ICompleteRegistersPhase
+    class CompleteRegistersPhase : ICompleteRegistersPhase
 	{
 		private readonly IGame _game;
         private readonly IActionStepper _actionStepper;
@@ -23,6 +20,8 @@ namespace RoboRally.Core.Phases
 
 		private void MoveBoardElements()
 		{
+            Debug.WriteLine("Moving board elements.");
+
 			var prioritizedTiles = _game
 				.FactoryFloor
 				.Tiles
@@ -40,6 +39,8 @@ namespace RoboRally.Core.Phases
 
 		private void TouchFlags()
 		{
+            Debug.WriteLine("Touching flags.");
+
 			foreach (var player in _game.Players)
 			{
 				foreach (var tile in _game.FactoryFloor.Tiles)
@@ -51,6 +52,8 @@ namespace RoboRally.Core.Phases
 
 		private void FireLasers()
 		{
+            Debug.WriteLine("Firing lasers.");
+
 			foreach (var player in _game.Players)
 			{
 				player.Robot.FireLaser();
@@ -59,6 +62,8 @@ namespace RoboRally.Core.Phases
 
 		private void MoveRobots()
 		{
+            Debug.WriteLine("Moving robots.");
+
 			var instructions = _game
 				.Players
 				.Select(player => (

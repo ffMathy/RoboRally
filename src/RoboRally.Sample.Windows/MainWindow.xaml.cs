@@ -1,19 +1,15 @@
 ﻿using RoboRally.Core;
+using RoboRally.Core.Phases;
+using RoboRally.Sample.Windows.Tags;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using FormsApplication = System.Windows.Forms.Application;
 
@@ -26,12 +22,17 @@ namespace RoboRally.Sample.Windows
     {
         private readonly IGame _game;
 
+        private readonly IList<Image> _imageElements;
+
         private const int TileSize = 60;
 
         public GameWindow(IGame game)
         {
             InitializeComponent();
+
             _game = game;
+
+            _imageElements = new List<Image>();
 
             Width = TileSize * _game.FactoryFloor.Width + 800;
             Height = TileSize * _game.FactoryFloor.Height;
@@ -44,7 +45,6 @@ namespace RoboRally.Sample.Windows
             _game.Step();
 
             KeyDown += GameWindow_KeyDown;
-
         }
 
         private void GameWindow_KeyDown(object sender, KeyEventArgs e)
@@ -56,43 +56,19 @@ namespace RoboRally.Sample.Windows
             _game.Step();
         }
 
-        //private void GoToNextPhase()
-        //{
-        //    var dealProgramCards = _game.EnterDealProgramCardsPhase();
-        //    dealProgramCards.Commit();
-
-        //    var programRegisters = _game.EnterProgramRegistersPhase();
-        //    foreach (var player in _game.Players)
-        //    {
-        //        programRegisters.AddHandCardToProgramSheet(player, player.Hand.Cards[0]);
-        //        programRegisters.AddHandCardToProgramSheet(player, player.Hand.Cards[1]);
-        //        programRegisters.AddHandCardToProgramSheet(player, player.Hand.Cards[2]);
-        //        programRegisters.AddHandCardToProgramSheet(player, player.Hand.Cards[3]);
-        //        programRegisters.AddHandCardToProgramSheet(player, player.Hand.Cards[4]);
-        //    }
-
-        //    programRegisters.Commit();
-
-        //    var announcePowerDown = _game.EnterAnnouncePowerDownPhase();
-
-        //    foreach (var player in _game.Players)
-        //        announcePowerDown.SetPowerDownState(player, false);
-
-        //    announcePowerDown.Commit();
-
-        //    var completeRegisters = _game.EnterCompleteRegistersPhase();
-        //    completeRegisters.Commit();
-
-        //    var cleanup = _game.EnterCleanupPhase();
-        //    cleanup.Commit();
-        //}
-
         private void Game_RenderRequested()
         {
+            foreach (var image in _imageElements)
+            {
+                image.MouseDown -= CardImageClicked;
+
+                image.Source = null;
+            }
+
+            _imageElements.Clear();
+
             RenderTiles();
             RenderHands();
-
-            Delay(100);
         }
 
         private void RenderHands()
@@ -112,17 +88,92 @@ namespace RoboRally.Sample.Windows
 
                 foreach (var card in player.Hand.Cards)
                 {
-                    var cardImage = new Image();
-                    cardImage.Height = TileSize * 2;
-                    cardImage.Source = new BitmapImage(
-                        new Uri($"file://{Environment.CurrentDirectory}/Images/Cards/{card.ResourceName}.png",
-                        UriKind.Absolute));
+                    var grid = new Grid();
 
-                    handPanel.Children.Add(cardImage);
+                    var programRegistersPhase = _game.CurrentPhase as IProgramRegistersPhase;
+
+                    var isCardInProgramRegister =
+                        programRegistersPhase != null &&
+                        programRegistersPhase.DoesProgramSheetContainCard(player, card);
+
+                    var cardImage = new Image
+                    {
+                        Height = TileSize * 2,
+                        Source = FreezeBitmapImage(
+                            new BitmapImage(
+                                new Uri($"file://{Environment.CurrentDirectory}/Images/Cards/{card.ResourceName}.png",
+                                UriKind.Absolute)))
+                    };
+                    cardImage.Tag = new PlayerCardTag(
+                        cardImage,
+                        player,
+                        card);
+
+                    cardImage.MouseDown += CardImageClicked;
+
+                    grid.Children.Add(cardImage);
+
+                    _imageElements.Add(cardImage);
+
+                    if (isCardInProgramRegister)
+                    {
+                        var overlayImage = new Image();
+                        overlayImage.Opacity = 0.5;
+                        overlayImage.Height = cardImage.Height;
+                        overlayImage.Source = FreezeBitmapImage(new BitmapImage(
+                            new Uri($"file://{Environment.CurrentDirectory}/Images/Cards/hidden.png",
+                            UriKind.Absolute)));
+                        overlayImage.Tag = new PlayerCardTag(
+                            cardImage,
+                            player,
+                            card);
+
+                        overlayImage.MouseDown += CardImageClicked;
+
+                        grid.Children.Add(overlayImage);
+
+                        _imageElements.Add(overlayImage);
+                    }
+
+                    handPanel.Children.Add(grid);
                 }
 
                 Hands.Children.Add(handPanel);
             }
+        }
+
+        private static BitmapImage FreezeBitmapImage(BitmapImage image)
+        {
+            image.Freeze();
+            return image;
+        }
+
+        private void CardImageClicked(object sender, MouseButtonEventArgs e)
+        {
+            var element = (FrameworkElement)sender;
+            var tag = (PlayerCardTag)element.Tag;
+
+            var programRegistersPhase = _game.CurrentPhase as IProgramRegistersPhase;
+            if (programRegistersPhase != null)
+            {
+                var isAlreadyProgrammed = programRegistersPhase.DoesProgramSheetContainCard(
+                    tag.Player,
+                    tag.Card);
+                if (isAlreadyProgrammed)
+                {
+                    programRegistersPhase.RemoveCardFromProgramSheetToHand(
+                        tag.Player,
+                        tag.Card);
+                }
+                else
+                {
+                    programRegistersPhase.AddHandCardToProgramSheet(
+                        tag.Player,
+                        tag.Card);
+                }
+            }
+
+            RenderHands();
         }
 
         private void RenderTiles()
@@ -142,17 +193,7 @@ namespace RoboRally.Sample.Windows
                 {
                     var tile = _game.FactoryFloor.Tiles.First(t => t.X == x && t.Y == y);
 
-                    var tileImage = new Image();
-                    tileImage.Width = TileSize;
-                    tileImage.Height = TileSize;
-                    tileImage.Source = new BitmapImage(
-                        new Uri($"file://{Environment.CurrentDirectory}/Images/Tiles/{tile.ResourceName}.png",
-                        UriKind.Absolute));
-
-                    Grid.SetColumn(tileImage, x);
-                    Grid.SetRow(tileImage, y);
-
-                    Tiles.Children.Add(tileImage);
+                    RenderImageOnTile(x, y, $"/Tiles/{tile.ResourceName}.png");
 
                     if (tile.Robot != null)
                     {
@@ -163,36 +204,49 @@ namespace RoboRally.Sample.Windows
             }
         }
 
+        private void AddControlToTile(int x, int y, UIElement control)
+        {
+            Grid.SetColumn(control, x);
+            Grid.SetRow(control, y);
+
+            Tiles.Children.Add(control);
+        }
+
         private void RenderPlayerLabel(int x, int y, IPlayer player)
         {
-            var label = new TextBlock();
-            label.Text = player.Label;
-            label.Foreground = Brushes.Blue;
-            label.FontSize = 30;
-            label.FontWeight = FontWeights.Bold;
-            label.TextAlignment = TextAlignment.Center;
-            label.HorizontalAlignment = HorizontalAlignment.Center;
-            label.VerticalAlignment = VerticalAlignment.Center;
+            var label = new TextBlock
+            {
+                Text = player.Label,
+                Foreground = Brushes.Blue,
+                FontSize = 30,
+                FontWeight = FontWeights.Bold,
+                TextAlignment = TextAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
-            Grid.SetColumn(label, x);
-            Grid.SetRow(label, y);
-
-            Tiles.Children.Add(label);
+            AddControlToTile(x, y, label);
         }
 
         private void RenderRobotImage(int x, int y, Core.Tiles.ITile tile)
         {
-            var robotImage = new Image();
-            robotImage.Width = TileSize;
-            robotImage.Height = TileSize;
-            robotImage.Source = new BitmapImage(
-                new Uri($"file://{Environment.CurrentDirectory}/Images/Tiles/Robot_{tile.Robot.Direction}.png",
-                UriKind.Absolute));
+            RenderImageOnTile(x, y, $"/Tiles/Robot_{tile.Robot.Direction}.png");
+        }
 
-            Grid.SetColumn(robotImage, x);
-            Grid.SetRow(robotImage, y);
+        private void RenderImageOnTile(int x, int y, string relativeImagePath)
+        {
+            var image = new Image
+            {
+                Width = TileSize,
+                Height = TileSize,
+                Source = FreezeBitmapImage(new BitmapImage(
+                    new Uri($"file://{Environment.CurrentDirectory}/Images{relativeImagePath}",
+                    UriKind.Absolute)))
+            };
 
-            Tiles.Children.Add(robotImage);
+            AddControlToTile(x, y, image);
+
+            _imageElements.Add(image);
         }
 
         private static void Delay(int milliseconds)

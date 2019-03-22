@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using RoboRally.Core.Cards;
 
 namespace RoboRally.Core.Phases
 {
-	class ProgramRegistersPhase : IProgramRegistersPhase
+    class ProgramRegistersPhase : IProgramRegistersPhase
 	{
 		private readonly IDictionary<IPlayer, IList<ICard>> _pendingCards;
+        private readonly IGame _game;
 
-		public ProgramRegistersPhase()
+        public ProgramRegistersPhase(
+            IGame game)
 		{
 			_pendingCards = new Dictionary<IPlayer, IList<ICard>>();
-		}
+            _game = game;
+        }
 		
 		public void AddHandCardToProgramSheet(IPlayer player, ICard card)
 		{
@@ -34,6 +36,15 @@ namespace RoboRally.Core.Phases
 
         public bool Step()
         {
+            foreach(var player in _game.Players)
+            {
+                if (_pendingCards.ContainsKey(player) && _pendingCards[player].Count >= 5)
+                    continue;
+
+                Debug.WriteLine("Player " + player + " has not yet programmed all his/her cards.");
+                return false;
+            }
+
             foreach (var item in _pendingCards)
             {
                 var player = item.Key;
@@ -43,6 +54,11 @@ namespace RoboRally.Core.Phases
             }
 
             return true;
+        }
+
+        public bool DoesProgramSheetContainCard(IPlayer player, ICard card)
+        {
+            return _pendingCards.ContainsKey(player) && _pendingCards[player].Contains(card);
         }
     }
 }

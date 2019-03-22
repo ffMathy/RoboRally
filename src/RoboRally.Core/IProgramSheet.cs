@@ -1,7 +1,5 @@
 ﻿using RoboRally.Core.Cards;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace RoboRally.Core
 {
@@ -12,6 +10,6 @@ namespace RoboRally.Core
 
 		bool IsPoweredDown { get; set; }
 
-		ICard[] RegisterCards { get; set; }
+		IList<ICard> RegisterCards { get; set; }
     }
 }

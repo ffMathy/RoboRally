@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 
 namespace RoboRally.Core.Tiles
 {
-	public class ExpressConveyorBeltTile : ConveyorBeltTile
+    public class ExpressConveyorBeltTile : ConveyorBeltTile
 	{
 		public override string ResourceName => $"ExpressConveyorBelt_{Direction}";
 		public ExpressConveyorBeltTile(OrientationDirection direction) : base(direction)

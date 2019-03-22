@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core.Phases
+﻿namespace RoboRally.Core.Phases
 {
-	class CleanupPhase : ICleanupPhase
+    class CleanupPhase : ICleanupPhase
 	{
 		private readonly IGame _game;
         private readonly IActionStepper _actionStepper;

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace RoboRally.Core.Tiles
 {
-	public class PusherTile : TileBase
+    public class PusherTile : TileBase
 	{
 		public override string ResourceName => $"Pusher_{Direction}";
 

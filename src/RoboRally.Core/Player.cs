@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RoboRally.Core
+﻿namespace RoboRally.Core
 {
-	class Player : IPlayer
+    class Player : IPlayer
 	{
 		private int _id;
 
