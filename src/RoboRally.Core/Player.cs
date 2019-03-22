@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core
+﻿using System;
+
+namespace RoboRally.Core
 {
+    [Serializable]
     class Player : IPlayer
 	{
 		private int _id;

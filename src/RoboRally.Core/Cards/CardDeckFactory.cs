@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RoboRally.Core.Cards
 {
-
+    [Serializable]
     class CardDeckFactory : ICardDeckFactory
 	{
 		public ICardDeck CreateDeck(IGame game)

@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace RoboRally.Core.Tiles
 {
+    [Serializable]
     public class ConveyorBeltTile : TileBase
 	{
 		public override string ResourceName => $"ConveyorBelt_{Direction}";

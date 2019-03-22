@@ -3,6 +3,7 @@ using RoboRally.Core.FactoryFloor;
 using RoboRally.Core.Phases;
 using RoboRally.Core.Tiles;
 using System;
+using System.Runtime.Serialization;
 
 namespace RoboRally.Core
 {

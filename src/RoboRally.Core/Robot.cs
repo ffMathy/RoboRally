@@ -1,7 +1,9 @@
 ﻿using RoboRally.Core.Tiles;
+using System;
 
 namespace RoboRally.Core
 {
+    [Serializable]
     class Robot : IRobot
 	{
 		public OrientationDirection Direction { get; set; }

@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Phases
+﻿using System;
+
+namespace RoboRally.Core.Phases
 {
+    [Serializable]
     class AnnouncePowerDownPhase : IAnnouncePowerDownPhase
 	{
 		public void SetPowerDownState(IPlayer player, bool willPowerDown)

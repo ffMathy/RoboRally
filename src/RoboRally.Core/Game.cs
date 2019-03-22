@@ -8,6 +8,7 @@ using RoboRally.Core.Tiles;
 
 namespace RoboRally.Core
 {
+    [Serializable]
     class Game : IGame
 	{
 		private const int RobotDamageCapacity = 10;

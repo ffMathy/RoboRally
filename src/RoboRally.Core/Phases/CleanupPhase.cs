@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Phases
+﻿using System;
+
+namespace RoboRally.Core.Phases
 {
+    [Serializable]
     class CleanupPhase : ICleanupPhase
 	{
 		private readonly IGame _game;

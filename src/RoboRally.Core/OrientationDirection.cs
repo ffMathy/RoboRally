@@ -1,6 +1,9 @@
-﻿namespace RoboRally.Core
+﻿using System;
+
+namespace RoboRally.Core
 {
-	public enum OrientationDirection
+    [Serializable]
+    public enum OrientationDirection
 	{
 		Up = 0,
 		Right = 1,

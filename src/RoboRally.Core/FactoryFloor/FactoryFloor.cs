@@ -1,7 +1,9 @@
 ﻿using RoboRally.Core.Tiles;
+using System;
 
 namespace RoboRally.Core.FactoryFloor
 {
+    [Serializable]
     class FactoryFloor : IFactoryFloor
 	{
 		public ITile[] Tiles { get; set; }

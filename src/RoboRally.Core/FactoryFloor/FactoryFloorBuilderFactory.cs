@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.FactoryFloor
+﻿using System;
+
+namespace RoboRally.Core.FactoryFloor
 {
+    [Serializable]
     class FactoryFloorBuilderFactory : IFactoryFloorBuilderFactory
 	{
 		private readonly IGame _game;

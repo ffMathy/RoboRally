@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RoboRally.Core.Tiles
 {
+    [Serializable]
     public class PusherTile : TileBase
 	{
 		public override string ResourceName => $"Pusher_{Direction}";

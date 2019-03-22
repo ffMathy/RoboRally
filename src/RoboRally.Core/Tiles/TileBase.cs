@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Tiles
+﻿using System;
+
+namespace RoboRally.Core.Tiles
 {
+    [Serializable]
     public abstract class TileBase : ITile
 	{
 		public ITileRelation Left { get; set; }

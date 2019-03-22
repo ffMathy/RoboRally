@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using RoboRally.Core.Cards;
 
 namespace RoboRally.Core.Phases
 {
+    [Serializable]
     class ProgramRegistersPhase : IProgramRegistersPhase
 	{
 		private readonly IDictionary<IPlayer, IList<ICard>> _pendingCards;

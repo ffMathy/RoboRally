@@ -1,8 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RoboRally.Core.Phases
 {
+    [Serializable]
     class CompleteRegistersPhase : ICompleteRegistersPhase
 	{
 		private readonly IGame _game;

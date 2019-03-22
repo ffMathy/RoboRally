@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace RoboRally.Core.FactoryFloor
 {
+    [Serializable]
     class FactoryFloorBuilder : IFactoryFloorBuilder
 	{
 		private readonly IGame _game;

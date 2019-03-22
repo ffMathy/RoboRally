@@ -2,6 +2,7 @@
 
 namespace RoboRally.Core.Cards
 {
+    [Serializable]
     public class Move : ICard
 	{
 		public MoveDirection Direction { get; set; }

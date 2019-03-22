@@ -2,6 +2,7 @@
 
 namespace RoboRally.Core
 {
+    [Serializable]
     class ActionStepper : IActionStepper
     {
         private int _offset;

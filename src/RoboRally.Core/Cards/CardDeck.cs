@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace RoboRally.Core.Cards
 {
+    [Serializable]
     public class CardDeck : ICardDeck
     {
 		private IList<ICard> _cards;

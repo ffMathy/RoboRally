@@ -3,6 +3,7 @@ using System;
 
 namespace RoboRally.Core.Cards
 {
+    [Serializable]
     public class Rotate : ICard
     {
 		public RotateDirection Direction { get; set; }

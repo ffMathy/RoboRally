@@ -1,12 +1,13 @@
 ﻿using RoboRally.Core.Cards;
+using System;
 
 namespace RoboRally.Core
 {
+    [Serializable]
     class GameFactory: IGameFactory
     {
 		private readonly ICardDeckFactory _cardDeckFactory;
 		private readonly IPlayerFactory _playerFactory;
-        private readonly IActionStepper _actionStepper;
 
         public GameFactory(
 			ICardDeckFactory cardDeckFactory,
@@ -15,7 +16,6 @@ namespace RoboRally.Core
 		{
 			_cardDeckFactory = cardDeckFactory;
 			_playerFactory = playerFactory;
-            _actionStepper = actionStepper;
         }
 
 		public IGame Create(int playerCount)
@@ -23,7 +23,7 @@ namespace RoboRally.Core
 			return new Game(
                 _cardDeckFactory, 
                 _playerFactory, 
-                _actionStepper,
+                new ActionStepper(),
                 playerCount);
 		}
 	}

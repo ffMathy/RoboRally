@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Phases
+﻿using System;
+
+namespace RoboRally.Core.Phases
 {
+    [Serializable]
     public class DealProgramCardsPhase : IDealProgramCardsPhase
 	{
 		private const int CardsPerPlayer = 9;

@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Tiles
+﻿using System;
+
+namespace RoboRally.Core.Tiles
 {
+    [Serializable]
     class TileRelation : ITileRelation
 	{
 		private bool _isObstructed;

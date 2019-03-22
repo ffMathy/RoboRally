@@ -1,6 +1,9 @@
-﻿namespace RoboRally.Core
+﻿using System;
+
+namespace RoboRally.Core
 {
-	public enum MoveDirection
+    [Serializable]
+    public enum MoveDirection
 	{
 		Forward,
 		Backward

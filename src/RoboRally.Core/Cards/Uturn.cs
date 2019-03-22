@@ -1,5 +1,8 @@
-﻿namespace RoboRally.Core.Cards
+﻿using System;
+
+namespace RoboRally.Core.Cards
 {
+    [Serializable]
     public class Uturn : ICard
     {
 		public int Priority { get; set; }

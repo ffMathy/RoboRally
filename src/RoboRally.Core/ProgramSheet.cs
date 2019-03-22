@@ -1,9 +1,11 @@
 ﻿using RoboRally.Core.Cards;
+using System;
 using System.Collections.Generic;
 
 namespace RoboRally.Core
 {
-	class ProgramSheet : IProgramSheet
+    [Serializable]
+    class ProgramSheet : IProgramSheet
 	{
 		public int DamageTokenCount { get; set; }
 		public int LifeTokenCount { get; set; }
