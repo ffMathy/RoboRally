@@ -3,15 +3,15 @@ using RoboRally.Core.Phases;
 using RoboRally.Sample.Windows.Tags;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
-using FormsApplication = System.Windows.Forms.Application;
 
 namespace RoboRally.Sample.Windows
 {
@@ -20,9 +20,10 @@ namespace RoboRally.Sample.Windows
     /// </summary>
     public partial class GameWindow : Window
     {
-        private readonly IGame _game;
+        private IGame _game;
 
         private readonly IList<Image> _imageElements;
+        private readonly BinaryFormatter _binaryFormatter;
 
         private const int TileSize = 60;
 
@@ -33,6 +34,7 @@ namespace RoboRally.Sample.Windows
             _game = game;
 
             _imageElements = new List<Image>();
+            _binaryFormatter = new BinaryFormatter();
 
             Width = TileSize * _game.FactoryFloor.Width + 800;
             Height = TileSize * _game.FactoryFloor.Height;
@@ -40,7 +42,7 @@ namespace RoboRally.Sample.Windows
             Left = 0;
             Top = 0;
 
-            game.RenderRequested += Game_RenderRequested;
+            game.RenderRequested += PerformRender;
 
             _game.Step();
 
@@ -56,7 +58,7 @@ namespace RoboRally.Sample.Windows
             _game.Step();
         }
 
-        private void Game_RenderRequested()
+        private void PerformRender()
         {
             foreach (var image in _imageElements)
             {
@@ -99,10 +101,7 @@ namespace RoboRally.Sample.Windows
                     var cardImage = new Image
                     {
                         Height = TileSize * 2,
-                        Source = FreezeBitmapImage(
-                            new BitmapImage(
-                                new Uri($"file://{Environment.CurrentDirectory}/Images/Cards/{card.ResourceName}.png",
-                                UriKind.Absolute)))
+                        Source = GetImageFromEmbeddedResource($"/Images/Cards/{card.ResourceName}.png")
                     };
                     cardImage.Tag = new PlayerCardTag(
                         cardImage,
@@ -120,9 +119,7 @@ namespace RoboRally.Sample.Windows
                         var overlayImage = new Image();
                         overlayImage.Opacity = 0.5;
                         overlayImage.Height = cardImage.Height;
-                        overlayImage.Source = FreezeBitmapImage(new BitmapImage(
-                            new Uri($"file://{Environment.CurrentDirectory}/Images/Cards/hidden.png",
-                            UriKind.Absolute)));
+                        overlayImage.Source = GetImageFromEmbeddedResource("/Images/Cards/hidden.png");
                         overlayImage.Tag = new PlayerCardTag(
                             cardImage,
                             player,
@@ -140,12 +137,6 @@ namespace RoboRally.Sample.Windows
 
                 Hands.Children.Add(handPanel);
             }
-        }
-
-        private static BitmapImage FreezeBitmapImage(BitmapImage image)
-        {
-            image.Freeze();
-            return image;
         }
 
         private void CardImageClicked(object sender, MouseButtonEventArgs e)
@@ -233,15 +224,36 @@ namespace RoboRally.Sample.Windows
             RenderImageOnTile(x, y, $"/Tiles/Robot_{tile.Robot.Direction}.png");
         }
 
+        private BitmapImage GetImageFromEmbeddedResource(string path)
+        {
+            var bitmap = new BitmapImage();
+            var paths = typeof(GameWindow).Assembly.GetManifestResourceNames();
+
+            if (path.StartsWith("/"))
+                path = path.Substring(1);
+
+            path = $"{nameof(RoboRally)}.{nameof(Sample)}.{nameof(Windows)}." + path.Replace("/", ".");
+
+            using (var stream = typeof(GameWindow).Assembly.GetManifestResourceStream(path))
+            {
+                bitmap.BeginInit();
+                bitmap.StreamSource = stream;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                bitmap.Freeze();
+            }
+
+            return bitmap;
+        }
+
         private void RenderImageOnTile(int x, int y, string relativeImagePath)
         {
             var image = new Image
             {
                 Width = TileSize,
                 Height = TileSize,
-                Source = FreezeBitmapImage(new BitmapImage(
-                    new Uri($"file://{Environment.CurrentDirectory}/Images{relativeImagePath}",
-                    UriKind.Absolute)))
+                Source = GetImageFromEmbeddedResource($"/Images{relativeImagePath}")
             };
 
             AddControlToTile(x, y, image);
@@ -249,10 +261,20 @@ namespace RoboRally.Sample.Windows
             _imageElements.Add(image);
         }
 
-        private static void Delay(int milliseconds)
+        private void SaveClick(object sender, RoutedEventArgs e)
         {
-            Thread.Sleep(milliseconds);
-            FormsApplication.DoEvents();
+            using (var stream = new MemoryStream())
+            {
+                _game.RenderRequested -= PerformRender;
+                _binaryFormatter.Serialize(stream, _game);
+                _game.RenderRequested += PerformRender;
+
+                var bytes = stream.ToArray();
+                var text = Convert.ToBase64String(bytes);
+
+                Clipboard.SetText("roborally://" + text.Replace("/", "_").Replace("+", "-"));
+                MessageBox.Show("Game saved to clipboard!");
+            }
         }
     }
 }

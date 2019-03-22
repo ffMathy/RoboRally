@@ -7,14 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Background="Black">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Name="Tiles">
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+            <Button HorizontalAlignment="Left" Click="SaveClick">Save</Button>
+        </StackPanel>
+        <Grid Grid.Row="1" Name="Tiles">
 
         </Grid>
-        <Grid Grid.Column="1" Name="Hands">
+        <Grid Grid.Row="1" Grid.Column="1" Name="Hands">
         </Grid>
     </Grid>
 </Window>
